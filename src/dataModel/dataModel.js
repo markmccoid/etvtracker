@@ -1,3 +1,36 @@
+/**
+ * @typedef {Object} showData - Object of showIds
+ * @property {string} backdropPath url to the backdrop image
+ * @property {number} firstAirDate unix time key for first airdate
+ * @property {array} genres Array of genre string values
+ * @property {number} lastAirDate unix time key for first airdate
+ * @property {string} name The show name
+ * @property {string} overview Overview of the show
+ * @property {string} posterPath url to the poster image
+ * @property {number} showId TMDb show Id
+ * @property {string} status Status of the show. "Ended", "Returning series", etc
+ * @property {number} totalEpisodes Total episode in all seasons
+ * @property {number} totalSeasons Total seasons of show available
+ */
+/**
+ * @typedef {Object} seasonData - Object {[showIds]: { showId, [seasonIds] }}
+ * This describes the [seasonIds] object properties
+ * @property {number} airDate Primary data for a tvShow
+ * @property {number} id Season Id from TMDb
+ * @property {string} name Name of season from TMDb
+ * @property {number} number The number of the season (we exclude any zero seasons returned)
+ * @property {string} overview Overview of the season
+ * @property {string} posterPath url to the poster image for the season
+ * 
+ */
+
+/**
+ * @typedef {Object} TV
+ * @property {Object} tvShow Primary data for a tvShow
+ * @property {Object} seasonData The season data for the tv show (Object Key)
+ * @property {Object} extraData Additional data for the tv show (Object Key)
+ */
+
 import _ from 'lodash';
 import moment from 'moment';
 import { getConfig, 
@@ -155,13 +188,7 @@ export const getImagesForShow = (showId, imageType = 'posters') => {
     });
 };
 
-/**
- * @typedef {Object} TV
- * @property {Object} tvShow Primary data for a tvShow
- * @property {Object} seasonData The season data for the tv show (Object Key)
- * @property {Object} extraData Additional data for the tv show (Object Key)
- * @property {Object} userData User data for the tv show (Object Key)
- */
+
 /**
  * First retrieves data from TMDb API and stores in Firebase
  * Then format the data and returns and object for the reducer to store in redux
@@ -180,13 +207,6 @@ export const dmAddTVShowData = async (uid, showId) => {
 };
 
 /**
- * @typedef {Object} TV
- * @property {Object} tvShow Primary data for a tvShow
- * @property {Object} seasonData The season data for the tv show (Object Key)
- * @property {Object} extraData Additional data for the tv show (Object Key)
- * @property {Object} userData User data for the tv show (Object Key)
- */
-/**
  * First retrieves data from TMDb API and stores in Firebase
  * Then format the data and returns and object for the reducer to store in redux
  * Returns an object of objects -> tvShow: {}, seasonData: {}, extraData: {}
@@ -203,12 +223,7 @@ export const dmRefreshTVShowData = async (uid, showId) => {
   return {showData, seasonData, extraData};
 };
 
-/**
- * @typedef {Object} TV
- * @property {Object} tvShow Primary data for a tvShow
- * @property {Object} seasonData The season data for the tv show (Object Key)
- * @property {Object} extraData Additional data for the tv show (Object Key)
- */
+
 /**
  * First retrieves data from TMDb API and stores in Firebase
  * Then format the data and returns and object for the reducer to store in redux

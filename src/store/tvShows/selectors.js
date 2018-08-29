@@ -5,10 +5,10 @@ import { getNextEpisode } from './helpers';
  * Returns data need for display of shows in sidebar
  * 
  * @param {object} showData - Object of showData as formatted in redux store
- * @param string searchTerm - Search string to filter return data by (show.name)
- * @param string tagData - from redux store
- * @param string filterKeys - tagKeys that we are filtering by
- * @param boolean andFlag - are we ANDing or ORing
+ * @param {string} searchTerm - Search string to filter return data by (show.name)
+ * @param {string} tagData - from redux store
+ * @param {string} filterKeys - tagKeys that we are filtering by
+ * @param {boolean} andFlag - are we ANDing or ORing
  * @returns {string[]} Returns an array of objects with needed show data
  */
 export const getSidebarData = (showData, searchTerm = '', tagData, filterKeys = [], andFlag = true) => {
@@ -74,7 +74,7 @@ export const getSidebarData = (showData, searchTerm = '', tagData, filterKeys = 
 
 /**
  * Returns all TVShowData in array format
- * 
+ * @param {string} showData - redux showData object
  * @returns {string[]} Returns an array of objects with all tvshowdata
  */
 export const getAllShowData = (showData) => {
@@ -89,6 +89,7 @@ export const getAllShowData = (showData) => {
  * 
  * @param {number} showId - Id of show to return data for
  * @param {object} showData - Object of objects of showData as formatted in redux store
+ * @param {object} userData - Object of objects of userData as formatted in redux store
  * @returns {object} Returns an object of show data
  */
 export const getCurrentShow = (showId, showData, userData) => {
