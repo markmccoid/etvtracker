@@ -215,17 +215,17 @@ export const getExtraDataForShow = (showId, extraData) => {
 
 /**
  * Returns an object with the userData for the showId passed in.  Will be in the format of
- * { 12332: { //Season ID
- *    55645:{ //Episode ID
- *      download: true/false
- *      watched: true/false
- *     },
- *    52333: { //Episode ID
- *      downloaded: true/false,
- *      watched: true/false
- *     },
- *    ...
- *   }
+ * { 12332: { //Season ID <br />
+ *    55645:{ //Episode ID <br />
+ *      download: true/false <br />
+ *      watched: true/false <br />
+ *     }, <br />
+ *    52333: { //Episode ID <br />
+ *      downloaded: true/false, <br />
+ *      watched: true/false <br />
+ *     }, <br />
+ *    ... <br />
+ *   } <br />
  * }
  * 
  * @param {number} showId - Id of show to return data for

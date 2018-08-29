@@ -104,6 +104,7 @@ export const getImageURLSync = (imgFileName, size = 'm', secureURL=true) => {
   if (!Array.isArray(imgFileName)) {
     return imgFileName ? [`${baseURL}${size}/${imgFileName.match(regEx)[0]}`] : [''];
   }
+
   // Process as an array and return an array, also make sure some value exists in each array slot.
   return imgFileName.map(file => file ? `${baseURL}${size}/${file.match(regEx)[0]}` : '');
 };

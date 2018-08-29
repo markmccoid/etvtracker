@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.0.0-rc.1",
+    "@types/lodash": "^4.14.116",
     "alertifyjs": "^1.11.1",
     "antd": "^3.6.6",
     "axios": "^0.18.0",

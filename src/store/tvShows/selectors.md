@@ -18,17 +18,17 @@
 </dd>
 <dt><a href="#getUserEpisodeData">getUserEpisodeData</a> ⇒ <code>object</code></dt>
 <dd><p>Returns an object with the userData for the showId passed in.  Will be in the format of
-{ 12332: { //Season ID
-   55645:{ //Episode ID
-     download: true/false
-     watched: true/false
-    },
-   52333: { //Episode ID
-     downloaded: true/false,
-     watched: true/false
-    },
-   ...
-  }
+{ 12332: { //Season ID <br />
+   55645:{ //Episode ID <br />
+     download: true/false <br />
+     watched: true/false <br />
+    }, <br />
+   52333: { //Episode ID <br />
+     downloaded: true/false, <br />
+     watched: true/false <br />
+    }, <br />
+   ... <br />
+  } <br />
 }</p>
 </dd>
 <dt><a href="#getTagDataArray">getTagDataArray</a> ⇒ <code>object</code></dt>
@@ -72,6 +72,11 @@ Returns all TVShowData in array format
 
 **Kind**: global constant  
 **Returns**: <code>Array.&lt;string&gt;</code> - Returns an array of objects with all tvshowdata  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| showData | <code>string</code> | redux showData object |
+
 <a name="getCurrentShow"></a>
 
 ## getCurrentShow ⇒ <code>object</code>
@@ -116,7 +121,7 @@ Returns an object with the extraData for the showId passed in
 <a name="getUserEpisodeData"></a>
 
 ## getUserEpisodeData ⇒ <code>object</code>
-Returns an object with the userData for the showId passed in.  Will be in the format of{ 12332: { //Season ID   55645:{ //Episode ID     download: true/false     watched: true/false    },   52333: { //Episode ID     downloaded: true/false,     watched: true/false    },   ...  }}
+Returns an object with the userData for the showId passed in.  Will be in the format of{ 12332: { //Season ID <br />   55645:{ //Episode ID <br />     download: true/false <br />     watched: true/false <br />    }, <br />   52333: { //Episode ID <br />     downloaded: true/false, <br />     watched: true/false <br />    }, <br />   ... <br />  } <br />}
 
 **Kind**: global constant  
 **Returns**: <code>object</code> - Returns an object of User data  
