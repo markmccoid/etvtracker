@@ -1,6 +1,7 @@
 import React from 'react';
 import * as css from './styles';
-import { Tag } from 'antd';
+
+import TagCloud from '../Tags/TagCloud';
 
 
 const QuickTagItem = (props) => {
@@ -18,23 +19,12 @@ const QuickTagItem = (props) => {
             Tags
           </div>
           <div>
-            {tagShowData.map(tagObj => {
-              return (
-                <Tag.CheckableTag key={tagObj.tagKey} 
-                  style={{ margin: "5px 2px"}}
-                  checked={tagObj.isMember}
-                  onChange={() => {
-                      tagObj.isMember ?
-                        props.actionCreators.removeTagFromShow(tagObj.memberKey, tagObj.tagKey)
-                      :
-                      props.actionCreators.addTagToShow(show.showId, tagObj.tagKey)
-                    }
-                  }
-                >
-                  {tagObj.tagName}
-                </Tag.CheckableTag>
-              )
-            })}       
+            <TagCloud
+              tagsArray={tagShowData}
+              onClickIsMember={props.actionCreators.removeTagFromShow}
+              onClickIsNotMember={props.actionCreators.addTagToShow}
+              showId={show.showId}
+            />
           </div>
       </div>
       </div>

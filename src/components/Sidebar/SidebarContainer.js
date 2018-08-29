@@ -51,7 +51,7 @@ class SidebarContainer extends React.Component {
       <div style={{display: "flex", flexDirection: "column"}}>
         <SidebarSearch history={this.props.history} onSearchTermUpdate={this._onSearchTermUpdate} searchTerm={this.props.searchTerm}/>
         <SidebarFilter 
-          tagData={this.props.tagData} 
+          tagsArray={this.props.tagsArray} 
           onFilterChange={this._onFilterChange} 
         />
         <DragDropContext onDragEnd={this.onDragEnd}>
@@ -71,7 +71,7 @@ const mapStateToProps = (state, ownProps) => {
       state.TV.searchData.filterMode,
     ),
     searchTerm: state.TV.searchData.searchTerm,
-    tagData: getTagDataArray(null, state.TV.tagData),
+    tagsArray: getTagDataArray(null, state.TV.tagData),
     tagFilter: state.TV.searchData.tagFilter,
   }
 }

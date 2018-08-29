@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Tag } from 'antd';
+import { Button } from 'antd';
 import * as css from './style';
 import swal from 'sweetalert2';
 import _ from 'lodash';
 
 import TVLinks from './TVLinks';
+import TagCloud from '../Tags/TagCloud';
 
 const TVDetail = (props) => {
   const onDeleteShow = () => {
@@ -105,23 +106,12 @@ const TVDetail = (props) => {
             />
           </div>
           <div className={css.overview}>
-            { props.tagsArray.map(tagObj => {
-              return (
-                <Tag.CheckableTag key={tagObj.tagKey} 
-                  style={{ margin: "5px 2px"}}
-                  checked={tagObj.isMember}
-                  onChange={() => {
-                      tagObj.isMember ?
-                        props.removeTagFromShow(tagObj.memberKey, tagObj.tagKey)
-                      :
-                      props.addTagToShow(props.showData.showId, tagObj.tagKey)
-                    }
-                  }
-                >
-                  {tagObj.tagName}
-                </Tag.CheckableTag>
-              )
-            })}
+            <TagCloud
+              tagsArray={props.tagsArray}
+              onClickIsMember={props.removeTagFromShow}
+              onClickIsNotMember={props.addTagToShow}
+              showId={props.showData.showId}
+            />            
           </div>
         </div>
       </div>
