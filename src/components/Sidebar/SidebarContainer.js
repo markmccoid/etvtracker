@@ -6,7 +6,7 @@ import SidebarList from './SidebarList';
 import SidebarSearch from './SidebarSearch';
 import SidebarFilter from './SidebarFilter';
 
-import { getSidebarData, 
+import { getSidebarData, getSidebarData2,
   getTagDataArray,
   getTagFilterData, 
   setTvSearchterm, 
@@ -54,6 +54,7 @@ class SidebarContainer extends React.Component {
   _onSearchTermUpdate = (searchTerm) => this.props.setTvSearchterm(searchTerm);
 
   render() {
+    console.log('SBD2', this.props.sidebarData);
     return (
       <div style={{display: "flex", flexDirection: "column"}}>
         <SidebarSearch history={this.props.history} onSearchTermUpdate={this._onSearchTermUpdate} searchTerm={this.props.searchTerm}/>
@@ -74,11 +75,16 @@ class SidebarContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    sidebarData: getSidebarData(state.TV.showData, 
+    sidebarData2: getSidebarData(state.TV.showData, 
       state.TV.searchData.searchTerm, 
       state.TV.tagData, 
       state.TV.searchData.tagFilter,
       state.TV.searchData.filterMode,
+    ),
+    sidebarData: getSidebarData2(state.TV.showData, 
+      state.TV.searchData.searchTerm, 
+      state.TV.tagData,
+      state.TV.searchData.andTagFilters,
     ),
     searchTerm: state.TV.searchData.searchTerm,
     tagsArray: getTagDataArray(null, state.TV.tagData),

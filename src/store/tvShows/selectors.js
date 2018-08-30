@@ -1,6 +1,48 @@
 import _ from 'lodash';
 import moment from 'moment';
 import { getNextEpisode } from './helpers';
+
+export const getSidebarData2 = (showData, searchTerm = '', tagData, andFilterTags = [], andFlag = true) => {
+  let filteredShowData = _.sortBy(showData, ['name']);
+  // - getMembers
+  let members = getMembers(tagData, andFilterTags, andFlag)
+  // - get show data for members
+  let hydratedMembers = members.map(member => {
+    return { ...member, ...showData[member.showId] } 
+  });
+
+  console.log(hydratedMembers)
+  return filteredShowData;
+}
+
+function getMembers(tagData, andFilterTags, andFlag) {
+  let validMembers = {}
+  
+  // ORing tag members togething
+  if (!andFlag){
+    // Since storing in an object with showIds as keys, 
+    // there won't be duplicates if show is member of multiple filter keys
+    andFilterTags.forEach(tagKey => {
+      validMembers = {...validMembers, ...tagData[tagKey].members}
+    });
+    // Convert object to an array, then sort by position field
+    return _.sortBy(_.flatMap(validMembers), 'position')
+  }
+
+  // ANDing tag members together
+  let memberMap = {};
+  andFilterTags.forEach(tagKey => {
+    for(const memberKey in tagData[tagKey].members) {
+      memberMap[memberKey] = memberMap[memberKey] ? memberMap[memberKey] + 1 : 1
+    }
+  });
+  validMembers = Object.keys(memberMap).filter(memberKey => memberMap[memberKey] === andFilterTags.length)
+  console.log('validMembers', validMembers);
+  //! Need to get the position for each valid member
+  //! Thinking that this function should return an SORTED array only, let the calling function hydrate
+
+  return _.sortBy(_.flatMap(validMembers), 'position')
+}
 /**
  * Returns data need for display of shows in sidebar
  * 
