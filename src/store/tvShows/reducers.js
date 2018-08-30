@@ -380,8 +380,8 @@ const searchDataReducer = handleActions({
     return { ...state, andTagFilters: newTagFilters}; // clear TV tag data
   },
   REMOVE_AND_TAG_FILTER: (state, action) => {
-    let newTagFilters = _.remove(state.andTagFilters, (tagKey) => tagKey === action.payload);
-  console.log('remove filters', newTagFilters)
+    let newTagFilters = [...state.andTagFilters]
+    _.remove(newTagFilters, (tagKey) => tagKey === action.payload);
     return { ...state, andTagFilters: newTagFilters}; // clear TV tag data
   },
 }, searchDataDefault)

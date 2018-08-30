@@ -7,7 +7,6 @@ const TagCloud = (props) => {
   return (
     <React.Fragment>
       {props.tagsArray.map(tagObj => {
-        console.log('tag cloud', tagObj)
         return (
           <Tag.CheckableTag key={tagObj.tagKey} 
             style={{ margin: "5px 2px"}}

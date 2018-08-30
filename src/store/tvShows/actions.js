@@ -53,7 +53,7 @@ export const {
   setTvSearchterm,
   setTvFilterArray,
   setAndTagFilters,
-  removeAdTagFilter,
+  removeAndTagFilter,
   updateUserEpisodeData,
   updateAllUserFlags,
   updateTvImagePoster,

@@ -251,7 +251,8 @@ export const getUserEpisodeData = (showId, userData) => {
  * 
  * @param {number} showId - Id of show to return data for
  * @param {object} tagData - Object of tagData
- * @returns {object} Returns an Array of objects of tag info
+ * @returns {array} Returns an Array of objects of tag info with bool isMember indicating if passed showId is a member of the tag sorted by tagPosition
+ * [ {tagKey, tagName, tagPosition, isMember, memberKey} ]
  */
 export const getTagDataArray = (showId, tagData) => {
   // Build tag array --> { tagKey, tagName }
@@ -279,23 +280,19 @@ export const getTagDataArray = (showId, tagData) => {
 
 /**
  * Returns an array of Tag data with showIds and showNames of members
- * {
- *  [tagKey]: {
- *    members: {
- *      [showId]: {
- *        showId,
- *        showName,
- *        position
- *      }
- *    }   
+ * [
+ *  {
+ *    tagKey,
+ *    tagName,
+ *    tagPosition,
+ *    members: [showid, showid, ...]
  *  }
- * }
+ * ]
  * 
- * @param {object} showData - object of showData from redux store
  * @param {object} tagData - Object of tagData
- * @returns {object} Returns an Array of objects of tag info
+ * @returns {array} Returns an Array of objects of tag info
  */
-export const getTagDataWithShowInfo = (tagData, showData) => {
+export const getTagDataWithMembers = (tagData) => {
   let tagArray = Object.keys(tagData).map(tag => {
     return {
       tagKey: tag,
@@ -308,9 +305,38 @@ export const getTagDataWithShowInfo = (tagData, showData) => {
       tag.members = _.flatMap(tag.members, 'showId')
     }
   );
-  //let members = tagArray[0].members
-  //console.log(_.flatMap(members, e => console.log(e)))
-  //console.log(_.flatMap(tagArray[0].members, 'showId'))
-  //return tagData;
+
   return _.sortBy(tagArray, ['tagPosition']);
+}
+
+/**
+ * Takes in all tags and the list of selected tags and return
+ * an array of tag objects with bool isSelected set for each tagKey
+ * [
+ *  {
+ *    tagKey,
+ *    tagPosition,
+ *    isSelected
+ *  }
+ * ]
+ * 
+ * @param {object} tagData - Object of tagData
+ * @returns {array} Returns an Array of objects of tag info
+ */
+export const getTagFilterData = (tagData, selectedTags = []) => {
+  let tagDataArray = Object.keys(tagData).map(tagKey => ({
+      tagKey,
+      tagName: tagData[tagKey].tagName,
+      tagPosition: tagData[tagKey].tagPosition
+    })
+  );
+  let finalList = tagDataArray.map(tag => {
+    return {
+      tagKey: tag.tagKey,
+      tagPosition: tag.tagPosition,
+      tagName: tag.tagName,
+      isSelected: selectedTags.includes(tag.tagKey)
+    }
+  });
+  return finalList;
 }

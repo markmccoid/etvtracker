@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import { getAllShowData, startAddTagName, 
   startDeleteTagName, startUpdateTagPosition, 
-  getTagDataWithShowInfo,
+  getTagDataWithMembers,
   startAddTagToShow,
   startRemoveTagFromShow } from '../../store/tvShows';
 import * as css from './styles';
@@ -101,7 +101,7 @@ class TVTagEditor extends React.Component {
 // tagData: { fbKey: { tagName }}
 const mapStateToProps = (state) => {
   return {
-    tagData: getTagDataWithShowInfo(state.TV.tagData, state.TV.showData),
+    tagData: getTagDataWithMembers(state.TV.tagData),
     showData: getAllShowData(state.TV.showData),
     reduxTagData: state.TV.tagData,
   }

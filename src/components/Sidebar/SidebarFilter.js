@@ -45,9 +45,9 @@ class SidebarFilter extends React.Component {
         </div>
         <div>
           <SidebarTagFilterCloud
-            tagsArray={this.props.tagsArray}
-            setAndTagFilters={this.props.setAndTagFilters}
-            removeAdTagFilter={this.props.removeAdTagFilter}
+            tagFilterData={this.props.tagFilterData}
+            setAndTagFilter={this.props.setAndTagFilters}
+            removeAndTagFilter={this.props.removeAndTagFilter}
             onClickIsMember={(key, tagKey) => console.log(tagKey)}
             onClickIsNotMember={(key, tagKey) => console.log(tagKey)}
           />

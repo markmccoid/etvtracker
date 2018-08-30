@@ -7,12 +7,13 @@ import SidebarSearch from './SidebarSearch';
 import SidebarFilter from './SidebarFilter';
 
 import { getSidebarData, 
+  getTagDataArray,
+  getTagFilterData, 
   setTvSearchterm, 
   setTvFilterArray, 
-  getTagDataArray, 
   startUpdateShowPositionInTag,
   setAndTagFilters,
-  removeAdTagFilter } from '../../store/tvShows';
+  removeAndTagFilter } from '../../store/tvShows';
 
 class SidebarContainer extends React.Component {
 
@@ -58,9 +59,10 @@ class SidebarContainer extends React.Component {
         <SidebarSearch history={this.props.history} onSearchTermUpdate={this._onSearchTermUpdate} searchTerm={this.props.searchTerm}/>
         <SidebarFilter 
           tagsArray={this.props.tagsArray} 
+          tagFilterData={this.props.tagFilterData}
           onFilterChange={this._onFilterChange} 
           setAndTagFilters={this.props.setAndTagFilters}
-          removeAdTagFilter={this.props.removeAdTagFilter}
+          removeAndTagFilter={this.props.removeAndTagFilter}
         />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <SidebarList sidebarData={this.props.sidebarData} />
@@ -80,7 +82,7 @@ const mapStateToProps = (state, ownProps) => {
     ),
     searchTerm: state.TV.searchData.searchTerm,
     tagsArray: getTagDataArray(null, state.TV.tagData),
-    tagFilter: state.TV.searchData.tagFilter,
+    tagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.andTagFilters),
   }
 }
 export default connect(mapStateToProps, 
@@ -88,7 +90,7 @@ export default connect(mapStateToProps,
     setTvFilterArray, 
     startUpdateShowPositionInTag,
     setAndTagFilters,
-    removeAdTagFilter })(SidebarContainer);
+    removeAndTagFilter })(SidebarContainer);
 
 // <React.Fragment>
 // <SidebarList sidebarData={this.props.sidebarData} />
