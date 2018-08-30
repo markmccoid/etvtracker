@@ -362,7 +362,9 @@ const errorDataReducer = (state = errorDataDefault, action) => {
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 const searchDataDefault = {
   searchTerm: undefined,
-  tagFilter: []
+  tagFilter: [],
+  filterMode: 'Or',
+  andTagFilters: []
 };
 
 const searchDataReducer = handleActions({
@@ -371,6 +373,16 @@ const searchDataReducer = handleActions({
   },
   SET_TV_FILTER_ARRAY: (state, action) => {
     return { ...state, tagFilter: action.payload.tagFilter, filterMode: action.payload.filterMode }
+  },
+  SET_AND_TAG_FILTERS: (state, action) => {
+    let newTagFilters = state.andTagFilters ? [ ...state.andTagFilters ] : [];
+    newTagFilters.push(action.payload)
+    return { ...state, andTagFilters: newTagFilters}; // clear TV tag data
+  },
+  REMOVE_AND_TAG_FILTER: (state, action) => {
+    let newTagFilters = _.remove(state.andTagFilters, (tagKey) => tagKey === action.payload);
+  console.log('remove filters', newTagFilters)
+    return { ...state, andTagFilters: newTagFilters}; // clear TV tag data
   },
 }, searchDataDefault)
 

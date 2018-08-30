@@ -13,10 +13,10 @@ const SidebarTagFilterCloud = (props) => {
             style={{ margin: "5px 2px"}}
             checked={tagObj.isMember}
             onChange={() => {
-                tagObj.isMember ?
-                  props.onSelectTag(tagObj.memberKey || null, tagObj.tagKey)
-                :
-                props.onDeselectTag(props.showId || null, tagObj.tagKey)
+              console.log('onChange', tagObj.tagKey)
+              // Create a single action creator that passes the tagKey
+              // then in reducer look for key if it exists, remove it, else add it
+                props.setAndTagFilters(tagObj.tagKey)
               }
             }
           >
@@ -34,9 +34,9 @@ SidebarTagFilterCloud.propTypes = {
     tagName: PropTypes.string,
     tagPosition: PropTypes.number,
     tagSelected: PropTypes.bool,
-  },
+  }),
   onSelectTag: PropTypes.func,
-  onDeselectTag: PropTypes.func,
+  onDeselectTag: PropTypes.func
 }
 
 export default SidebarTagFilterCloud;

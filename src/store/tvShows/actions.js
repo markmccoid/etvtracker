@@ -36,6 +36,8 @@ export const ADD_TAG_TO_SHOW = 'ADD_TAG_TO_SHOW';
 export const UPDATE_SHOW_POSITION_IN_TAG = 'UPDATE_SHOW_POSITION_IN_TAG';
 export const REMOVE_TAG_FROM_SHOW = 'REMOVE_TAG_FROM_SHOW';
 export const SET_TV_FILTER_ARRAY = 'SET_TV_FILTER_ARRAY';
+export const SET_AND_TAG_FILTERS = 'SET_AND_TAG_FILTERS';
+export const REMOVE_AND_TAG_FILTER = 'REMOVE_AND_TAG_FILTER';
 export const ADD_LINK_TO_SHOW = 'ADD_LINK_TO_SHOW';
 export const REMOVE_LINK_FROM_SHOW = 'REMOVE_LINK_FROM_SHOW';
 
@@ -50,6 +52,8 @@ export const {
   setTvShowError,
   setTvSearchterm,
   setTvFilterArray,
+  setAndTagFilters,
+  removeAdTagFilter,
   updateUserEpisodeData,
   updateAllUserFlags,
   updateTvImagePoster,
@@ -69,6 +73,8 @@ export const {
     SET_TV_SHOW_ERROR,
     SET_TV_SEARCHTERM,
     SET_TV_FILTER_ARRAY,
+    SET_AND_TAG_FILTERS,
+    REMOVE_AND_TAG_FILTER,
     UPDATE_USER_EPISODE_DATA,
     UPDATE_ALL_USER_FLAGS,
     UPDATE_TV_IMAGE_POSTER,

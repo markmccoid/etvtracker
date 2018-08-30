@@ -1,6 +1,6 @@
 import React from 'react';
-import { Select,Checkbox } from 'antd';
-import TagCloud from '../Tags/TagCloud';
+import { Select } from 'antd';
+import SidebarTagFilterCloud from './SidebarTagFilterCloud';
 
 const Option = Select.Option;
 
@@ -44,8 +44,10 @@ class SidebarFilter extends React.Component {
           </Select>
         </div>
         <div>
-          <TagCloud
+          <SidebarTagFilterCloud
             tagsArray={this.props.tagsArray}
+            setAndTagFilters={this.props.setAndTagFilters}
+            removeAdTagFilter={this.props.removeAdTagFilter}
             onClickIsMember={(key, tagKey) => console.log(tagKey)}
             onClickIsNotMember={(key, tagKey) => console.log(tagKey)}
           />
