@@ -48,3 +48,28 @@ export const baseNext = css`
 export const next = css`
   color: darkred;
 `;
+
+//! ---------------------------------------
+//! Sidebar FILTER
+//! ---------------------------------------
+export const filterWrapper = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid #BDBDBD;
+  border-radius: 5px;
+`;
+export const filterTagContainer = css`
+  display: flex;
+  background: white;
+  border-radius: 5px;
+  padding: 0 5px;
+  z-index: 100;
+`;
+export const filterTagCloud = css`
+  display: flex;
+  background: white;
+  border: 1px solid #BDBDBD;
+  border-radius: 5px;
+`;

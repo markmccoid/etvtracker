@@ -16,7 +16,11 @@ const initialState = {
     userData: {},
     tagData: {},
     errorData: {},
-    searchData: {}
+    searchData: {
+      searchTerm: undefined,
+      andFlag: false,
+      tagFilters: []
+    }
   },
   auth: {
     uid: undefined,

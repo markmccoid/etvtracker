@@ -8,7 +8,7 @@ import { getNextEpisode } from './helpers';
  * @param {object} showData - Object of showData as formatted in redux store
  * @param {string} searchTerm - Search string to filter return data by (show.name)
  * @param {string} tagData - from redux store
- * @param {string} andfilterKeys - tagKeys that we are filtering by
+ * @param {array} andfilterKeys - tagKeys that we are filtering by
  * @param {boolean} andFlag - are we ANDing or ORing
  * @returns {string[]} Returns an array of objects with needed show data
  */
@@ -143,7 +143,7 @@ export const getSidebarDataOLD = (showData, searchTerm = '', tagData, filterKeys
 export const getAllShowData = (showData) => {
   // create an array of shows
   let showArray = [];
-  showArray = _.map(showData, (showObj) => ({ ...showObj }));
+  showArray = _.sortBy(_.map(showData, (showObj) => ({ ...showObj })), 'name');
   return showArray || [];
 };
 
@@ -402,4 +402,26 @@ export const getTagFilterData = (tagData, selectedTags = []) => {
     }
   });
   return finalList;
+}
+
+/**
+ * Takes in all tagData, list of selected tags and filter mode
+ * return an object with a tagsSelected array with tagName that are selected
+ * and the andFlag (and/or)
+ *  {
+ *    tagsSelected: [],
+ *    andFlag
+ *  }
+ * 
+ * @param {object} tagData - Object of tagData
+ * @param {array} tagFilters - Array of selected filters
+ * @param {string} andFlag - true/false
+ * @returns {object} Returns an object with tagsSelected array of selected tags
+ *  and the filterMode (And/Or based on the andFlag)
+ */
+export const getTagFilterSummary = (tagData, tagFilters = [], andFlag) => {
+  
+  let tagsSelected = tagFilters.map(tagKey => tagData[tagKey].tagName);
+  let filterMode = andFlag ? 'And' : 'Or';
+  return { tagsSelected, filterMode }
 }

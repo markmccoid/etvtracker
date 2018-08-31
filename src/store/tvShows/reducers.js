@@ -362,9 +362,8 @@ const errorDataReducer = (state = errorDataDefault, action) => {
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 const searchDataDefault = {
   searchTerm: undefined,
-  tagFilter: [],
-  filterMode: 'Or',
-  andTagFilters: []
+  andFlag: false,
+  tagFilters: []
 };
 
 const searchDataReducer = handleActions({
@@ -372,17 +371,21 @@ const searchDataReducer = handleActions({
     return { ...state, searchTerm: action.payload }
   },
   SET_TV_FILTER_ARRAY: (state, action) => {
-    return { ...state, tagFilter: action.payload.tagFilter, filterMode: action.payload.filterMode }
+    return { ...state, tagFilter: action.payload.tagFilter, andFlag: action.payload.andFlag }
   },
-  SET_AND_TAG_FILTERS: (state, action) => {
-    let newTagFilters = state.andTagFilters ? [ ...state.andTagFilters ] : [];
+  ADD_TAG_TO_FILTER: (state, action) => {
+    let newTagFilters = state.tagFilters ? [ ...state.tagFilters ] : [];
     newTagFilters.push(action.payload)
-    return { ...state, andTagFilters: newTagFilters}; // clear TV tag data
+    return { ...state, tagFilters: newTagFilters}; // clear TV tag data
   },
-  REMOVE_AND_TAG_FILTER: (state, action) => {
-    let newTagFilters = [...state.andTagFilters]
-    _.remove(newTagFilters, (tagKey) => tagKey === action.payload);
-    return { ...state, andTagFilters: newTagFilters}; // clear TV tag data
+  REMOVE_TAG_FROM_FILTER: (state, action) => {
+    let newTagFilters = [];
+    // only remove if tag is passed, otherwise we will clear the tagFilters
+    if (action.payload) {
+      newTagFilters = [...state.tagFilters]
+      _.remove(newTagFilters, (tagKey) => tagKey === action.payload);
+    }
+    return { ...state, tagFilters: newTagFilters}; // clear TV tag data
   },
 }, searchDataDefault)
 

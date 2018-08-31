@@ -9,11 +9,12 @@ import SidebarFilter from './SidebarFilter';
 import { getSidebarData,
   getTagDataArray,
   getTagFilterData, 
+  getTagFilterSummary,
   setTvSearchterm, 
   setTvFilterArray, 
   startUpdateShowPositionInTag,
-  setAndTagFilters,
-  removeAndTagFilter } from '../../store/tvShows';
+  addTagToFilter,
+  removeTagFromFilter } from '../../store/tvShows';
 
 class SidebarContainer extends React.Component {
 
@@ -62,8 +63,9 @@ class SidebarContainer extends React.Component {
           tagsArray={this.props.tagsArray} 
           tagFilterData={this.props.tagFilterData}
           onFilterChange={this._onFilterChange} 
-          setAndTagFilters={this.props.setAndTagFilters}
-          removeAndTagFilter={this.props.removeAndTagFilter}
+          tagFilterSummary={this.props.tagFilterSummary}
+          addTagToFilter={this.props.addTagToFilter}
+          removeTagFromFilter={this.props.removeTagFromFilter}
         />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <SidebarList sidebarData={this.props.sidebarData} />
@@ -78,21 +80,22 @@ const mapStateToProps = (state, ownProps) => {
     sidebarData: getSidebarData(state.TV.showData, 
       state.TV.searchData.searchTerm, 
       state.TV.tagData,
-      state.TV.searchData.andTagFilters,
-      state.TV.searchData.filterMode,
+      state.TV.searchData.tagFilters,
+      state.TV.searchData.andFlag,
     ),
     searchTerm: state.TV.searchData.searchTerm,
     tagsArray: getTagDataArray(null, state.TV.tagData),
-    tagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.andTagFilters),
-    tagFilters: state.TV.searchData.andTagFilters
+    tagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.tagFilters),
+    tagFilters: state.TV.searchData.tagFilters,
+    tagFilterSummary: getTagFilterSummary(state.TV.tagData, state.TV.searchData.tagFilters, state.TV.searchData.andFlag)
   }
 }
 export default connect(mapStateToProps, 
   { setTvSearchterm, 
     setTvFilterArray, 
     startUpdateShowPositionInTag,
-    setAndTagFilters,
-    removeAndTagFilter })(SidebarContainer);
+    addTagToFilter,
+    removeTagFromFilter })(SidebarContainer);
 
 // <React.Fragment>
 // <SidebarList sidebarData={this.props.sidebarData} />
