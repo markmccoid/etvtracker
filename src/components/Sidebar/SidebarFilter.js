@@ -24,34 +24,20 @@ class SidebarFilter extends React.Component {
   {
     return (
       <div>
-        <div style={{ display: "flex"}}>
-          <Select
+        <Select
             onChange={(val) => this._onFilterChange('andFlag', val==='and' ? true : false)}
             defaultValue="or"
-          >
+        >
             <Option key="and">And</Option>
             <Option key="or">Or</Option>
-          </Select>
-          <Select
-            mode="multiple"
-            allowClear
-            placeholder="Filter by Tags"
-            style={{ width: '100%' }}
-            onChange={(val) => this._onFilterChange('filterTags', val)}
-          >
-            {this.props.tagsArray.map(tagObj => <Option key={tagObj.tagKey}>{tagObj.tagName}</Option>)}
-            
-          </Select>
-        </div>
-        <div>
-          <SidebarTagFilterCloud
-            tagFilterData={this.props.tagFilterData}
-            setAndTagFilter={this.props.setAndTagFilters}
-            removeAndTagFilter={this.props.removeAndTagFilter}
-            onClickIsMember={(key, tagKey) => console.log(tagKey)}
-            onClickIsNotMember={(key, tagKey) => console.log(tagKey)}
-          />
-        </div>
+        </Select>
+        <SidebarTagFilterCloud
+          tagFilterData={this.props.tagFilterData}
+          setAndTagFilter={this.props.setAndTagFilters}
+          removeAndTagFilter={this.props.removeAndTagFilter}
+          onClickIsMember={(key, tagKey) => console.log(tagKey)}
+          onClickIsNotMember={(key, tagKey) => console.log(tagKey)}
+        />
       </div>
     )
   }

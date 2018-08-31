@@ -6,7 +6,7 @@ import SidebarList from './SidebarList';
 import SidebarSearch from './SidebarSearch';
 import SidebarFilter from './SidebarFilter';
 
-import { getSidebarData, getSidebarData2,
+import { getSidebarData,
   getTagDataArray,
   getTagFilterData, 
   setTvSearchterm, 
@@ -42,19 +42,19 @@ class SidebarContainer extends React.Component {
     // get new list of showId(s) and positions
     let newPositionMap = newShowObects.map((show,idx) => ({ showId: show.showId, position: idx+1}));
 
-    // If not filters, then don't do anything
-    if (this.props.tagFilter.length === 0) {
+    // If no filters or more than 1 don't reorder
+    if (this.props.tagFilters.length != 1) {
       return;
     }
     // Call action creator to update positions for tag
     // Currently just updating the first tagKey
-    this.props.startUpdateShowPositionInTag(this.props.tagFilter[0], newPositionMap);
+    this.props.startUpdateShowPositionInTag(this.props.tagFilters[0], newPositionMap);
   }
   _onFilterChange = (filterArray) => this.props.setTvFilterArray(filterArray)
   _onSearchTermUpdate = (searchTerm) => this.props.setTvSearchterm(searchTerm);
 
   render() {
-    console.log('SBD2', this.props.sidebarData);
+    console.log('SBD2', this.props.tagFilters);
     return (
       <div style={{display: "flex", flexDirection: "column"}}>
         <SidebarSearch history={this.props.history} onSearchTermUpdate={this._onSearchTermUpdate} searchTerm={this.props.searchTerm}/>
@@ -75,20 +75,16 @@ class SidebarContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    sidebarData2: getSidebarData(state.TV.showData, 
-      state.TV.searchData.searchTerm, 
-      state.TV.tagData, 
-      state.TV.searchData.tagFilter,
-      state.TV.searchData.filterMode,
-    ),
-    sidebarData: getSidebarData2(state.TV.showData, 
+    sidebarData: getSidebarData(state.TV.showData, 
       state.TV.searchData.searchTerm, 
       state.TV.tagData,
       state.TV.searchData.andTagFilters,
+      state.TV.searchData.filterMode,
     ),
     searchTerm: state.TV.searchData.searchTerm,
     tagsArray: getTagDataArray(null, state.TV.tagData),
     tagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.andTagFilters),
+    tagFilters: state.TV.searchData.andTagFilters
   }
 }
 export default connect(mapStateToProps, 

@@ -2,22 +2,42 @@ import _ from 'lodash';
 import moment from 'moment';
 import { getNextEpisode } from './helpers';
 
-export const getSidebarData2 = (showData, searchTerm = '', tagData, andFilterTags = [], andFlag = true) => {
+/**
+ * Returns data need for display of shows in sidebar
+ * 
+ * @param {object} showData - Object of showData as formatted in redux store
+ * @param {string} searchTerm - Search string to filter return data by (show.name)
+ * @param {string} tagData - from redux store
+ * @param {string} andfilterKeys - tagKeys that we are filtering by
+ * @param {boolean} andFlag - are we ANDing or ORing
+ * @returns {string[]} Returns an array of objects with needed show data
+ */
+export const getSidebarData = (showData, searchTerm = '', tagData, andFilterTags = [], andFlag = true) => {
   let filteredShowData = _.sortBy(showData, ['name']);
   // - getMembers
   let members = getMembers(tagData, andFilterTags, andFlag)
-  // - get show data for members
-  let hydratedMembers = members.map(member => {
-    return { ...member, ...showData[member.showId] } 
-  });
-
-  console.log(hydratedMembers)
+  console.log(members.length)
+  // - get show data for members if members found and filter tags passed
+  if (members.length || andFilterTags.length) {
+    filteredShowData = members.map(showId => {
+      return { ...showData[showId] } 
+    });
+  }
+  filteredShowData = _.map(_.filter(filteredShowData, (showObj) => showObj.name.toLowerCase().includes(searchTerm)),
+                        (showObj) => showObj);
   return filteredShowData;
 }
 
 function getMembers(tagData, andFilterTags, andFlag) {
   let validMembers = {}
-  
+  // Single filter tag
+  if (andFilterTags.length === 1) {
+    validMembers = { ...tagData[andFilterTags[0]].members }
+    validMembers = _.sortBy(_.flatMap(validMembers), 'position')
+      .map(member => member.showId);
+    return validMembers;
+  }
+
   // ORing tag members togething
   if (!andFlag){
     // Since storing in an object with showIds as keys, 
@@ -26,7 +46,9 @@ function getMembers(tagData, andFilterTags, andFlag) {
       validMembers = {...validMembers, ...tagData[tagKey].members}
     });
     // Convert object to an array, then sort by position field
-    return _.sortBy(_.flatMap(validMembers), 'position')
+    validMembers = _.sortBy(_.flatMap(validMembers), 'position')
+      .map(member => member.showId);
+    return validMembers;
   }
 
   // ANDing tag members together
@@ -36,12 +58,11 @@ function getMembers(tagData, andFilterTags, andFlag) {
       memberMap[memberKey] = memberMap[memberKey] ? memberMap[memberKey] + 1 : 1
     }
   });
-  validMembers = Object.keys(memberMap).filter(memberKey => memberMap[memberKey] === andFilterTags.length)
-  console.log('validMembers', validMembers);
-  //! Need to get the position for each valid member
-  //! Thinking that this function should return an SORTED array only, let the calling function hydrate
-
-  return _.sortBy(_.flatMap(validMembers), 'position')
+  validMembers = Object.keys(memberMap)
+    .filter(memberKey => memberMap[memberKey] === andFilterTags.length)
+    .map(showId => parseInt(showId));
+  // Just an array of showIds. Not sorted
+  return validMembers;
 }
 /**
  * Returns data need for display of shows in sidebar
@@ -53,7 +74,7 @@ function getMembers(tagData, andFilterTags, andFlag) {
  * @param {boolean} andFlag - are we ANDing or ORing
  * @returns {string[]} Returns an array of objects with needed show data
  */
-export const getSidebarData = (showData, searchTerm = '', tagData, filterKeys = [], andFlag = true) => {
+export const getSidebarDataOLD = (showData, searchTerm = '', tagData, filterKeys = [], andFlag = true) => {
   let filteredShowData = _.sortBy(showData, ['name']);
   // -- 1 -- First we are going to filter shows based on the filterKeys
   // Create an array of { showId, position } that are included in the tags passed
