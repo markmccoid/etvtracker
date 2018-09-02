@@ -10,19 +10,29 @@ import { getNextEpisode } from './helpers';
  * @param {string} tagData - from redux store
  * @param {array} andfilterKeys - tagKeys that we are filtering by
  * @param {boolean} andFlag - are we ANDing or ORing
+ * @param {array} excludeTagFilters - tagKeys whose members are to be exluded
  * @returns {string[]} Returns an array of objects with needed show data
  */
-export const getSidebarData = (showData, searchTerm = '', tagData, andFilterTags = [], andFlag = true) => {
+export const getSidebarData = (showData, searchTerm = '', tagData, tagFilters = [], andFlag = true, excludeTagFilters = []) => {
   let filteredShowData = _.sortBy(showData, ['name']);
-  // - getMembers
-  let members = getMembers(tagData, andFilterTags, andFlag)
-  console.log(members.length)
+  // - getMembers for tagFilter
+  let members = getMembers(tagData, tagFilters, andFlag)
   // - get show data for members if members found and filter tags passed
-  if (members.length || andFilterTags.length) {
+  // - need to check filter length so if tagFilter passed returns zero members. we would show no results
+  if (members.length || tagFilters.length) {
     filteredShowData = members.map(showId => {
       return { ...showData[showId] } 
     });
   }
+  // get members to exclude
+  let excludeMembers = getMembers(tagData, excludeTagFilters, false)
+  let availableMembers = _.map(filteredShowData, 'showId');
+  let finalMembers = _.difference(availableMembers, excludeMembers)
+  // Hydrate filteredShowData
+  filteredShowData = finalMembers.map(showId => {
+      return { ...showData[showId] } 
+    });
+  // Apply searchTerm and return showObj with show data
   filteredShowData = _.map(_.filter(filteredShowData, (showObj) => showObj.name.toLowerCase().includes(searchTerm)),
                         (showObj) => showObj);
   return filteredShowData;
@@ -416,12 +426,15 @@ export const getTagFilterData = (tagData, selectedTags = []) => {
  * @param {object} tagData - Object of tagData
  * @param {array} tagFilters - Array of selected filters
  * @param {string} andFlag - true/false
+ * @param {array} excludeTagFilters - Array of selected Exclude tag filters
  * @returns {object} Returns an object with tagsSelected array of selected tags
  *  and the filterMode (And/Or based on the andFlag)
+ *  and array of excluded tags
  */
-export const getTagFilterSummary = (tagData, tagFilters = [], andFlag) => {
+export const getTagFilterSummary = (tagData, tagFilters = [], andFlag, excludeTagFilters = []) => {
   
   let tagsSelected = tagFilters.map(tagKey => tagData[tagKey].tagName);
+  let excludeTagsSelected = excludeTagFilters.map(tagKey => tagData[tagKey].tagName);
   let filterMode = andFlag ? 'And' : 'Or';
-  return { tagsSelected, filterMode }
+  return { tagsSelected, filterMode, excludeTagsSelected }
 }

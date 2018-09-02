@@ -15,7 +15,7 @@ const SidebarTagFilterCloud = (props) => {
               tagObj.isSelected ?
                 props.removeTagFromFilter(tagObj.tagKey)
                 :
-                props.setAndTagFilter(tagObj.tagKey)
+                props.addTagToFilter(tagObj.tagKey)
               }
             }
           >
@@ -35,7 +35,7 @@ SidebarTagFilterCloud.propTypes = {
     isSelected: PropTypes.bool,
   })),
   removeTagFromFilter: PropTypes.func,
-  setAndTagFilter: PropTypes.func
+  addTagToFilter: PropTypes.func
 }
 
 export default SidebarTagFilterCloud;

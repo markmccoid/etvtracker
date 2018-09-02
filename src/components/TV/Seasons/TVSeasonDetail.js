@@ -34,7 +34,7 @@ const TVSeasonDetail = (props) => {
   }
   return (
     <React.Fragment>
-    <div className={css.seasonHeaderIcons} style={{justifyContent: "flex-end"}}>
+    {/* <div className={css.seasonHeaderIcons} style={{justifyContent: "flex-end"}}>
       <Popover placement="left" 
         title="Mark All"
         content={<div>
@@ -45,7 +45,7 @@ const TVSeasonDetail = (props) => {
           <Icon type="global" />
         </div>
       </Popover>
-    </div>
+    </div> */}
         {props.episodes.map(episode => {
           return (
               <TVEpisode

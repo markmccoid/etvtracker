@@ -27,12 +27,17 @@ class SidebarFilter extends React.Component {
   }
 
   render() {
-    let { tagsSelected, filterMode } = this.props.tagFilterSummary;
+    let { tagsSelected, filterMode, excludeTagsSelected } = this.props.tagFilterSummary;
 
-    let filterSummary = tagsSelected.length ? `${filterMode.toUpperCase()} -> ` : 'No Filters Selected'
+    let filterSummary = tagsSelected.length ? `${filterMode.toUpperCase()} ->` : 'No Filters Selected'
     tagsSelected.forEach((tag, idx) => {
-      filterSummary += `${idx !== 0 ? ',' : '' }${tag} `}
-    );
+      filterSummary += `${idx !== 0 ? ',' : '' }${tag} `
+    });
+    let excludedfilterSummary = excludeTagsSelected.length ? 'Excluded -> ' : 'Nothing Excluded' ;
+    excludeTagsSelected.forEach((tag, idx) => {
+      excludedfilterSummary += `${idx !== 0 ? ',' : '' }${tag} `;
+    })
+    
     const config = {
       visible: { opacity: 1, height: '100%', transition: { duration: 1000 } },
       hidden: { opacity: 0, height: 0, transition: { duration: 500 } }
@@ -44,47 +49,69 @@ class SidebarFilter extends React.Component {
 
             return (
               <React.Fragment>
-                <div className={css.filterWrapper} style={{display: "flex"}}>
-                  <Tooltip title="Clear filters">
-                    <Button 
-                      style={{ marginRight: "5px"}}
-                      onClick={() => this.props.removeTagFromFilter()} 
-                      icon="close-circle" 
-                      type="danger"
-                    />
-                  </Tooltip>
-                    <Button 
-                      style={{ marginRight: "5px"}}
-                      onClick={toggle}
-                      icon="filter"
-                      type="primary"
-                    />
-                    { !on && <div>{filterSummary}</div>}
-
-
-
+                <div className={css.filterWrapper} >
+                  { on && 
+                    <div style={{ display: "flex", flexDirection: "column"}}>
+                      <Button 
+                        style={{ marginRight: "5px"}}
+                        onClick={() => this.props.removeTagFromFilter()} 
+                        icon="close-circle" 
+                        type="danger"
+                      />
+                    
+                      <Button 
+                        style={{ marginRight: "5px"}}
+                        onClick={() => this.props.removeExcludeTagFromFilter()} 
+                        icon="close-circle" 
+                        type="danger"
+                      />
+                    </div>
+                  }
+                  <Button 
+                    style={{ marginRight: "5px"}}
+                    onClick={toggle}
+                    icon="filter"
+                    type="primary"
+                  />
+                  { !on && 
+                    <div>
+                      <div>{filterSummary}</div>
+                      <div>{excludedfilterSummary}</div>
+                    </div>
+                  }
                   <Box 
                   pose={on ? 'visible' : 'hidden'}
                   className={css.filterTagContainer}
-                  >
-                  <div style={on ? {} : {display: "none"}}>
-                  <Select
-                      onChange={(val) => this._onFilterChange('andFlag', val==='and' ? true : false)}
-                      defaultValue="or"
-                      value={this.state.andFlag ? 'and' : 'or'}
-                  >
-                      <Option key="and">And</Option>
-                      <Option key="or">Or</Option>
-                  </Select>
-                </div>
-                <div className={css.filterTagCloud} style={on ? {} : {display: "none"}}>
-                  <SidebarTagFilterCloud
-                    tagFilterData={this.props.tagFilterData}
-                    setAndTagFilter={this.props.addTagToFilter}
-                    removeTagFromFilter={this.props.removeTagFromFilter}
-                  />
-                </div>
-                </Box>
+                    >
+                    <div style={on ? { display: "flex", flexDirection: "column"} : {display: "none"}}>
+                      <Select
+                          onChange={(val) => this._onFilterChange('andFlag', val==='and' ? true : false)}
+                          defaultValue="or"
+                          value={this.state.andFlag ? 'and' : 'or'}
+                          style={{fontWeight: "bold"}}
+                      >
+                          <Option key="and">And</Option>
+                          <Option key="or">Or</Option>
+                      </Select>
+                      <div className={css.excludeTitle}>Exclude</div>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column"}}>
+                      <div className={css.filterTagCloud} style={on ? {} : {display: "none"}}>
+                        <SidebarTagFilterCloud
+                          tagFilterData={this.props.tagFilterData}
+                          addTagToFilter={this.props.addTagToFilter}
+                          removeTagFromFilter={this.props.removeTagFromFilter}
+                        />
+                      </div>
+                      <div className={css.filterTagCloud} style={on ? {} : {display: "none"}}>
+                        <SidebarTagFilterCloud
+                          tagFilterData={this.props.excludeTagFilterData}
+                          addTagToFilter={this.props.addExcludeTagToFilter}
+                          removeTagFromFilter={this.props.removeExcludeTagFromFilter}
+                        />
+                      </div>
+                    </div>
+                  </Box>
                 </div>
 
                 

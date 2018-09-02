@@ -6,8 +6,16 @@ import * as css from './TVSeasonStyle';
 
 import TVEpisodeDetail from './TVEpisodeDetail';
 class TVEpisode extends React.Component {
-  state = {
-    TVEpisodeDetailVisible: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      TVEpisodeDetailVisible: false
+    };
+    this.episodeRef = React.createRef();
+
+  }
+  componentDidUpdate() {
+    this.episodeRef.current.focus();
   }
   onShowEpisodeDetail = () => {
     this.setState((prevState) => ({ TVEpisodeDetailVisible: !prevState.TVEpisodeDetailVisible }))
@@ -24,6 +32,8 @@ class TVEpisode extends React.Component {
     return (
       <div className={css.episodeMainWrapper}>
         <div className={css.episodeWrapper}>
+        {/* "hidden" input field used to keep from popping to top of screen when watched/downloaded toggled */}
+          <input type="text" style={{opacity: "0", width: "0"}} ref={this.episodeRef} />
           <div className={css.episodeNumber}>
             {episode.number}
           </div>

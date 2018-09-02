@@ -51,7 +51,6 @@ class TVSeasonContainer extends React.Component {
     //   }
     //  }
     // }
-    console.log('hold panel change', seasonId)
     let seasonObj = _.find(this.props.seasonData, ['id', seasonId]);
     
     let updateObj = {
@@ -81,7 +80,6 @@ class TVSeasonContainer extends React.Component {
         activeKey={this.state.activePanelId} 
         className={css.seasonWrapper}
         onChange={(activePanelId) => {
-            console.log('Collapse panel change', activePanelId)
             // if (activePanelId) {
               this.setState(prevState => ({ prevActivePanelId: prevState.activePanelId,
                 activePanelId: activePanelId ? activePanelId.toString() : null}))

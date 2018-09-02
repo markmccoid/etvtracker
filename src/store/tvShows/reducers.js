@@ -283,7 +283,6 @@ const tagDataReducer = handleActions({
         }
       }
     });
-    console.log('deleteshow tagmember', newState);
     return newState;
   },
   ADD_TAG_NAME: (state, action) => {
@@ -332,7 +331,6 @@ const tagDataReducer = handleActions({
     let newState = { ...state };
     let newMembers = { ...state[tagKey].members };
     delete newMembers[showMemberKey];
-    console.log('REMOVE Tag new state', { ...newState, [tagKey]: { members: { ...newMembers } }})
     return { ...newState, [tagKey]: { ...state[tagKey], members: { ...newMembers } }}
   },
   AUTH_LOGOUT: (state, action) => {
@@ -386,6 +384,20 @@ const searchDataReducer = handleActions({
       _.remove(newTagFilters, (tagKey) => tagKey === action.payload);
     }
     return { ...state, tagFilters: newTagFilters}; // clear TV tag data
+  },
+  ADD_EXCLUDE_TAG_TO_FILTER: (state, action) => {
+    let newTagFilters = state.excludeTagFilters ? [ ...state.excludeTagFilters ] : [];
+    newTagFilters.push(action.payload)
+    return { ...state, excludeTagFilters: newTagFilters}; // clear TV tag data
+  },
+  REMOVE_EXCLUDE_TAG_FROM_FILTER: (state, action) => {
+    let newTagFilters = [];
+    // only remove if tag is passed, otherwise we will clear the tagFilters
+    if (action.payload) {
+      newTagFilters = [...state.excludeTagFilters]
+      _.remove(newTagFilters, (tagKey) => tagKey === action.payload);
+    }
+    return { ...state, excludeTagFilters: newTagFilters}; // clear TV tag data
   },
 }, searchDataDefault)
 

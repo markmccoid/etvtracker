@@ -38,6 +38,8 @@ export const REMOVE_TAG_FROM_SHOW = 'REMOVE_TAG_FROM_SHOW';
 export const SET_TV_FILTER_ARRAY = 'SET_TV_FILTER_ARRAY';
 export const ADD_TAG_TO_FILTER = 'ADD_TAG_TO_FILTER';
 export const REMOVE_TAG_FROM_FILTER = 'REMOVE_TAG_FROM_FILTER';
+export const ADD_EXCLUDE_TAG_TO_FILTER = 'ADD_EXCLUDE_TAG_TO_FILTER';
+export const REMOVE_EXCLUDE_TAG_FROM_FILTER = 'REMOVE_EXCLUDE_TAG_FROM_FILTER';
 export const ADD_LINK_TO_SHOW = 'ADD_LINK_TO_SHOW';
 export const REMOVE_LINK_FROM_SHOW = 'REMOVE_LINK_FROM_SHOW';
 
@@ -54,6 +56,8 @@ export const {
   setTvFilterArray,
   addTagToFilter,
   removeTagFromFilter,
+  addExcludeTagToFilter,
+  removeExcludeTagFromFilter,
   updateUserEpisodeData,
   updateAllUserFlags,
   updateTvImagePoster,
@@ -75,6 +79,8 @@ export const {
     SET_TV_FILTER_ARRAY,
     ADD_TAG_TO_FILTER,
     REMOVE_TAG_FROM_FILTER,
+    ADD_EXCLUDE_TAG_TO_FILTER,
+    REMOVE_EXCLUDE_TAG_FROM_FILTER,
     UPDATE_USER_EPISODE_DATA,
     UPDATE_ALL_USER_FLAGS,
     UPDATE_TV_IMAGE_POSTER,

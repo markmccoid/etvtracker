@@ -73,3 +73,12 @@ export const filterTagCloud = css`
   border: 1px solid #BDBDBD;
   border-radius: 5px;
 `;
+export const excludeTitle = css`
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  height: 100%;
+  border: 1px solid #BDBDBD;
+  border-radius: 5px;
+  font-weight: bold;
+`;

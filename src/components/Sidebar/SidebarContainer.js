@@ -14,7 +14,9 @@ import { getSidebarData,
   setTvFilterArray, 
   startUpdateShowPositionInTag,
   addTagToFilter,
-  removeTagFromFilter } from '../../store/tvShows';
+  removeTagFromFilter,
+  addExcludeTagToFilter,
+  removeExcludeTagFromFilter } from '../../store/tvShows';
 
 class SidebarContainer extends React.Component {
 
@@ -55,17 +57,19 @@ class SidebarContainer extends React.Component {
   _onSearchTermUpdate = (searchTerm) => this.props.setTvSearchterm(searchTerm);
 
   render() {
-    console.log('SBD2', this.props.tagFilters);
     return (
       <div style={{display: "flex", flexDirection: "column"}}>
         <SidebarSearch history={this.props.history} onSearchTermUpdate={this._onSearchTermUpdate} searchTerm={this.props.searchTerm}/>
         <SidebarFilter 
           tagsArray={this.props.tagsArray} 
           tagFilterData={this.props.tagFilterData}
+          excludeTagFilterData={this.props.excludeTagFilterData}
           onFilterChange={this._onFilterChange} 
           tagFilterSummary={this.props.tagFilterSummary}
           addTagToFilter={this.props.addTagToFilter}
           removeTagFromFilter={this.props.removeTagFromFilter}
+          addExcludeTagToFilter={this.props.addExcludeTagToFilter}
+          removeExcludeTagFromFilter={this.props.removeExcludeTagFromFilter}
         />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <SidebarList sidebarData={this.props.sidebarData} />
@@ -82,12 +86,18 @@ const mapStateToProps = (state, ownProps) => {
       state.TV.tagData,
       state.TV.searchData.tagFilters,
       state.TV.searchData.andFlag,
+      state.TV.searchData.excludeTagFilters
     ),
     searchTerm: state.TV.searchData.searchTerm,
     tagsArray: getTagDataArray(null, state.TV.tagData),
     tagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.tagFilters),
+    excludeTagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.excludeTagFilters),
     tagFilters: state.TV.searchData.tagFilters,
-    tagFilterSummary: getTagFilterSummary(state.TV.tagData, state.TV.searchData.tagFilters, state.TV.searchData.andFlag)
+    tagFilterSummary: getTagFilterSummary(state.TV.tagData, 
+      state.TV.searchData.tagFilters, 
+      state.TV.searchData.andFlag,
+      state.TV.searchData.excludeTagFilters
+    )
   }
 }
 export default connect(mapStateToProps, 
@@ -95,7 +105,9 @@ export default connect(mapStateToProps,
     setTvFilterArray, 
     startUpdateShowPositionInTag,
     addTagToFilter,
-    removeTagFromFilter })(SidebarContainer);
+    removeTagFromFilter,
+    addExcludeTagToFilter,
+    removeExcludeTagFromFilter })(SidebarContainer);
 
 // <React.Fragment>
 // <SidebarList sidebarData={this.props.sidebarData} />
