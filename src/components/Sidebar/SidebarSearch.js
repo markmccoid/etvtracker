@@ -4,9 +4,14 @@ import { Button, Input } from 'antd';
 const SearchInput = Input.Search;
 
 class SidebarSearch extends React.Component {
+  constructor(props) {
+    super(props);
+    this.inputRef = React.createRef();
+  }
 
   _onSearchTermUpdate = (searchTerm) => {
     this.props.onSearchTermUpdate(searchTerm)
+    this.inputRef.current.focus();
     //Call Search in SidebarContainer that filters redux store 
     // or should I store in redux store and always filter by that term.
   }
@@ -15,7 +20,9 @@ class SidebarSearch extends React.Component {
 
     return (
       <div>
+        
         <SearchInput 
+          ref={this.inputRef}
           placeholder="Find show in library" 
           onSearch={() => this._onSearchTermUpdate('')}
           onChange={(e) => this._onSearchTermUpdate(e.target.value)}

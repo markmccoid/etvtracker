@@ -1,5 +1,6 @@
 {
   "name": "etvtracker",
+  "productname": "TV Tracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -66,6 +67,9 @@
     ],
     "directories": {
       "buildResources": "assets"
+    },
+    "win": {
+      "icon": "assets/favicon.ico"
     }
   },
   "scriptsOld": {

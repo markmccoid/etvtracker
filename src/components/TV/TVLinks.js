@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as css from './style';
+import { cx } from 'react-emotion';
 import { Button, Input, Tooltip, Icon } from 'antd';
 import { Toggle } from 'react-powerplug';
 import posed from 'react-pose';
@@ -71,7 +72,8 @@ const Box = posed.div(config);
 
               <Box
                 pose={on ? 'visible' : 'hidden'}
-                className={css.linkAddWrapper}
+                className={cx(css.linkAddWrapper, (!on ? css.displayNone : null))}
+                
               >
                 <Input style={{ width: "100px"}} autoFocus type="text" placeholder="Link Name" ref={(input) => this.linkNameRef = input}/>
                 <Input type="text" placeholder="Link url" ref={(input) => this.linkRef = input}/>

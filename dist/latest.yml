@@ -1,0 +1,9 @@
+version: 0.1.0
+files:
+  - url: etvtracker-setup-0.1.0.exe
+    sha512: 2cOTpRrkrK97wxkwdU2ToZY702i+yiP/4zneCCr83eBvzXyg3h6iIuMxD/HO9pTdClGvP2vqNMaYfETitj3aIw==
+    size: 40644589
+path: etvtracker-setup-0.1.0.exe
+sha512: 2cOTpRrkrK97wxkwdU2ToZY702i+yiP/4zneCCr83eBvzXyg3h6iIuMxD/HO9pTdClGvP2vqNMaYfETitj3aIw==
+sha2: 4079ba44008df375c00d58166bd3940332984cdcccf1f2773487cbc7f82b0be4
+releaseDate: '2018-09-02T04:06:56.631Z'

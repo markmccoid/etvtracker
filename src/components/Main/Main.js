@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import { startLogout } from '../../store/auth';
 import { startAddTVShow } from '../../store/tvShows';
@@ -20,6 +20,7 @@ class Main extends React.Component {
         <Header startLogout={this.props.startLogout}/>      
         <div style={{height: "15px"}}></div>
         <MainGrid>
+          <Route exact path="/" render={() => <Redirect to="/tv" />} />
           <Route path="/tv" component={SidebarContainer} />
           <Route path="/tv/detail/:id" component={TVContainer} />
           <Route path="/tv/add" render={(props) => <TVAdd {...props} startAddTVShow={this.props.startAddTVShow} />} />

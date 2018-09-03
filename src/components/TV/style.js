@@ -133,6 +133,10 @@ export const linkAddWrapper = css`
   width: 100%;
 `;
 
+export const displayNone = css`
+  display: none;
+`;
+
 export const linkAddButton = css`
   position: absolute;
   top: 0;

@@ -9,13 +9,19 @@ class TVEpisode extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      TVEpisodeDetailVisible: false
+      TVEpisodeDetailVisible: false,
+      // this value used to determine if we should set focus on updated episode
+      episodeUpdated: false
     };
     this.episodeRef = React.createRef();
 
   }
   componentDidUpdate() {
-    this.episodeRef.current.focus();
+    if (this.state.episodeUpdated) {
+      console.log('focus')
+      this.episodeRef.current.focus();
+      this.setState({episodeUpdated: false})
+    } 
   }
   onShowEpisodeDetail = () => {
     this.setState((prevState) => ({ TVEpisodeDetailVisible: !prevState.TVEpisodeDetailVisible }))
@@ -28,12 +34,14 @@ class TVEpisode extends React.Component {
       seasonId: this.props.seasonId,
       episodeId: episode.id
     }
-    
+    console.log('epupdated', this.state.episodeUpdated)
     return (
       <div className={css.episodeMainWrapper}>
         <div className={css.episodeWrapper}>
         {/* "hidden" input field used to keep from popping to top of screen when watched/downloaded toggled */}
-          <input type="text" style={{opacity: "0", width: "0"}} ref={this.episodeRef} />
+          {/* {this.state.episodeUpdated && <input type="text" style={{opacity: "0", width: "0"}} ref={this.episodeRef} />} */}
+          {this.state.episodeUpdated && <input type="text"  ref={this.episodeRef} />}
+          
           <div className={css.episodeNumber}>
             {episode.number}
           </div>
@@ -52,6 +60,7 @@ class TVEpisode extends React.Component {
             <div 
               className={cx(css.circle, episode.watched ? css.selected : null)}
               onClick={(e) => {
+                  this.setState({ episodeUpdated: true });
                   this.props.updateUserEpisodeData({ ...updateObj, userField: 'WATCHED', checkboxState: !episode.watched });
                 }
               }
@@ -60,7 +69,11 @@ class TVEpisode extends React.Component {
             </div>
             <div 
               className={cx(css.circle, episode.downloaded ? css.selected : null)}
-              onClick={(e) => this.props.updateUserEpisodeData({ ...updateObj, userField: 'DOWNLOADED', checkboxState: !episode.downloaded })}
+              onClick={(e) => {
+                  this.setState({ episodeUpdated: true });
+                  this.props.updateUserEpisodeData({ ...updateObj, userField: 'DOWNLOADED', checkboxState: !episode.downloaded });
+                }
+              }
             >
               <Icon type="download" />
             </div>
