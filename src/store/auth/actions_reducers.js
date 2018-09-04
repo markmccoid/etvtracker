@@ -70,6 +70,22 @@ export const startLogin = (loginType, email='', password='') => {
 	};
 };
 
+export const startEmailRegistration = (email='', password='') => {
+	//Thunk
+	return (dispatch, getState) => {
+		//set auth:status to working
+		dispatch(authSetStatus(AUTH_WORKING));
+		firebase.auth().createUserWithEmailAndPassword(email, password).then((result) => {
+					console.log('Auth Success', result);
+				}).catch(function(error) {
+		  // Handle Errors here.
+		  var errorCode = error.code;
+		  var errorMessage = error.message;
+		  console.log("Email registration error", errorCode, errorMessage);
+		  dispatch(authSetStatus(AUTH_ERROR, `Email registration error - Error Code: ${errorCode} - Error Message: ${errorMessage}`));
+		});
+	};
+};
 
 /************************************************
 -- REDUCERS
@@ -89,7 +105,7 @@ const authReducer = handleActions({
 	},
 	AUTH_LOGIN: {
 		next: (state, action) => {
-			return { uid: action.payload, status: AUTH_SUCCESS, message: '' };
+			return { uid: action.payload.uid, email: action.payload.email, status: AUTH_SUCCESS, message: '' };
 		},
 		throw: (state, action) => {
 				return { uid: '', status: AUTH_ERROR, message: action.payload}

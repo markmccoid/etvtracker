@@ -24,6 +24,7 @@ const initialState = {
   },
   auth: {
     uid: undefined,
+    email: undefined,
     status: undefined,
     message: undefined
   },

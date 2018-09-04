@@ -411,7 +411,7 @@ export const getTagFilterData = (tagData, selectedTags = []) => {
       isSelected: selectedTags.includes(tag.tagKey)
     }
   });
-  return finalList;
+  return _.sortBy(finalList, ['tagPosition']);
 }
 
 /**

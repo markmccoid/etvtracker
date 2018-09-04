@@ -7,7 +7,10 @@ const Header = (props) => {
   const { history, location } = props;
   return (
     <S.Container>
-      <div>TV Tracker-{location.pathname}</div>
+      <div>
+        <div>TV Tracker-{location.pathname}</div>
+        <div>User-{props.userEmail}</div>
+      </div>
       <div>
         <Button onClick={() => history.push("/tv")}
           //disabled={location.pathname.indexOf('/tv') >= 0}

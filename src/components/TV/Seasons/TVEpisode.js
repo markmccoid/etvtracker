@@ -18,7 +18,6 @@ class TVEpisode extends React.Component {
   }
   componentDidUpdate() {
     if (this.state.episodeUpdated) {
-      console.log('focus')
       this.episodeRef.current.focus();
       this.setState({episodeUpdated: false})
     } 
@@ -34,7 +33,7 @@ class TVEpisode extends React.Component {
       seasonId: this.props.seasonId,
       episodeId: episode.id
     }
-    console.log('epupdated', this.state.episodeUpdated)
+
     return (
       <div className={css.episodeMainWrapper}>
         <div className={css.episodeWrapper}>

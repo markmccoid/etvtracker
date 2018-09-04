@@ -17,7 +17,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <Header startLogout={this.props.startLogout}/>      
+        <Header startLogout={this.props.startLogout} userEmail={this.props.userEmail} />      
         <div style={{height: "15px"}}></div>
         <MainGrid>
           <Route exact path="/" render={() => <Redirect to="/tv" />} />
@@ -32,4 +32,9 @@ class Main extends React.Component {
   }
 }
 
-export default connect(null, { startLogout, startAddTVShow })(Main);
+const mapStateToProps = (state) => {
+  return ({
+    userEmail: state.auth.email
+  })
+}
+export default connect(mapStateToProps, { startLogout, startAddTVShow })(Main);
