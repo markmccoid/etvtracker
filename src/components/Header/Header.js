@@ -30,6 +30,7 @@ const Header = (props) => {
         />
       </div>
       <Button onClick={() => history.push("/tvtags")}>Tags</Button>
+      <Button onClick={() => history.push("/tvcoverview")}>Cover View</Button>
       <Button onClick={() => history.push("/api")}>API Explorer</Button>
       
       <div className={S.RightContainer}>
