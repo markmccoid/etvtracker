@@ -7,16 +7,8 @@ class TVCoverViewContainer extends React.Component {
   render() {
     console.log('CV', this.props.showDataArray)
     return (
-      <div style={{ display: "flex"}}>
-      {this.props.showDataArray.map(show => {
-        return (
-          <div key={show.showId}>
-            <img src={show.posterPath} />
-            <h2>{show.name}</h2>
-          </div>
-        )
-      })}
-    </div>)
+      this.props.children(this.props.showDataArray)
+    )
   }
 }
 
@@ -45,3 +37,32 @@ export default connect(mapStateToProps)(TVCoverViewContainer);
 // status: "Returning Series"
 // totalEpisodes: 87
 // totalSeasons: 8
+
+
+// import React from 'react';
+// import { connect } from 'react-redux';
+
+// import TVCoverItem from './TVCoverItem';
+
+// import { getAllShowData } from '../../../store/tvShows';
+
+// class TVCoverViewContainer extends React.Component {
+//   render() {
+//     console.log('CV', this.props.showDataArray)
+//     return (
+//       <div style={{ display: "flex"}}>
+//       {this.props.showDataArray.map(show => {
+//         return (
+//           <TVCoverItem key={show.showId} show={show} />
+//         )
+//       })}
+//     </div>)
+//   }
+// }
+
+// const mapStateToProps = (state) => {
+//   return {
+//     showDataArray: getAllShowData(state.TV.showData)
+//   }
+// }
+// export default connect(mapStateToProps)(TVCoverViewContainer);

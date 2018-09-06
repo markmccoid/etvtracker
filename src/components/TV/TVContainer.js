@@ -68,8 +68,8 @@ class TVContainer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-  // props.match.params.id is the showId being used for routing
-  let showId = props.match.params.id;
+  // is the showId being used for routing
+  let showId = props.match ? props.match.params.id : props.coverShowId;
   return {
     showData: getCurrentShow(showId, state.TV.showData, state.TV.userData),
     seasonData: getCurrentSeasons(showId, state.TV.seasonData, state.TV.userData),

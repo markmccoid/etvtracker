@@ -11,7 +11,7 @@ import TVAdd from '../TV/Add/TVAdd';
 import APIContainer from '../API/APIContainer';
 import SidebarContainer from '../Sidebar/SidebarContainer';
 import TVTagEditor from '../Tags/TVTagEditor';
-import TVCoverViewContainer from '../TV/CoverView/TVCoverViewContainer';
+import TVCover from '../TV/CoverView/TVCover';
 import { MainGrid } from './Style';
 
 class Main extends React.Component {
@@ -27,7 +27,7 @@ class Main extends React.Component {
           <Route path="/tv/add" render={(props) => <TVAdd {...props} startAddTVShow={this.props.startAddTVShow} />} />
         </MainGrid>
           <Route path="/tvtags" component={TVTagEditor} />
-          <Route path="/tvcoverview" component={TVCoverViewContainer} />
+          <Route path="/tvcoverview" component={TVCover} />
           <Route path="/api" component={APIContainer} />
       </div>
     )
