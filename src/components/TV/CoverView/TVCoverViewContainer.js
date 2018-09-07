@@ -14,7 +14,7 @@ class TVCoverViewContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    showDataArray: getAllShowData(state.TV.showData)
+    showDataArray: getAllShowData(state.TV.showData),
   }
 }
 export default connect(mapStateToProps)(TVCoverViewContainer);
