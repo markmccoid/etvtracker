@@ -14,19 +14,12 @@ import TagContainer from './TagContainer';
 import QuickTagShows from './QuickTagShows';
 
 class TVTagEditor extends React.Component {
-  state = {
-    tags: []
-  }
+
   _onSaveTagName = () => {
     const tagName = this.nameInput.input.value.trim();
     if (tagName.length > 0) {
       this.props.startAddTagName(tagName);
     }
-    // this.setState((prevState) => { 
-    //   let newState = [...prevState.tags, tagName ];
-    //   return {tags: newState}
-    //   }
-    // );
     this.nameInput.input.value = '';
     this.nameInput.focus();
   }
@@ -88,7 +81,7 @@ class TVTagEditor extends React.Component {
             actionCreators={{addTagToShow: this.props.startAddTagToShow, removeTagFromShow: this.props.startRemoveTagFromShow}}
             addTagToShow={this.props.startAddTagToShow}
             removeTagFromShow={this.props.startRemoveTagFromShow}
-            />
+          />
         </div>
       </div>
     );
