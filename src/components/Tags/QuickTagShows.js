@@ -4,6 +4,10 @@ import * as css from './styles';
 import QuickTagItem from './QuickTagItem';
 import { getTagDataArray } from '../../store/tvShows';
 
+// -------------------------------------------------
+// Component that builds list of shows to allow
+// users to quickly tag them
+// -------------------------------------------------
 class QuickTagShows extends React.Component {
   _buildTagArray = (showId, tagData) => {
     return getTagDataArray(showId, tagData);
