@@ -79,8 +79,6 @@ class TVTagEditor extends React.Component {
             showData={this.props.showData}
             tagData={this.props.reduxTagData}  
             actionCreators={{addTagToShow: this.props.startAddTagToShow, removeTagFromShow: this.props.startRemoveTagFromShow}}
-            addTagToShow={this.props.startAddTagToShow}
-            removeTagFromShow={this.props.startRemoveTagFromShow}
           />
         </div>
       </div>
