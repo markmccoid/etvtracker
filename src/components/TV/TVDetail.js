@@ -106,12 +106,21 @@ const TVDetail = (props) => {
             />
           </div>
           <div className={css.overview}>
-            <TagCloud
-              tagsArray={props.tagsArray}
-              onClickIsMember={props.removeTagFromShow}
-              onClickIsNotMember={props.addTagToShow}
-              showId={props.showData.showId}
-            />            
+            <TagCloud tagStyle={{margin: "5px 2px"}}>
+              {props.tagsArray.map(tag => {
+                return (
+                  <TagCloud.TagItem
+                    key={tag.tagKey}
+                    tagKey={tag.tagKey}
+                    tagName={tag.tagName}
+                    isSelected={tag.isMember}
+                    onSelectTag={() => props.addTagToShow(props.showData.showId || null, tag.tagKey)}
+                    onDeSelectTag={() => props.removeTagFromShow(tag.memberKey || null, tag.tagKey)}
+                  />
+                )
+              })
+              }
+            </TagCloud>        
           </div>
         </div>
       </div>

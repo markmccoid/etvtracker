@@ -5,7 +5,7 @@ import { Toggle } from 'react-powerplug';
 import posed from 'react-pose';
 import * as css from './Style';
 
-import SidebarTagFilterCloud from './SidebarTagFilterCloud';
+import TagCloud from '../Tags/TagCloud';
 
 const Option = Select.Option;
 
@@ -97,25 +97,42 @@ class SidebarFilter extends React.Component {
                     </div>
                     <div style={{ display: "flex", flexDirection: "column"}}>
                       <div className={css.filterTagCloud} style={on ? {} : {display: "none"}}>
-                        <SidebarTagFilterCloud
-                          tagFilterData={this.props.tagFilterData}
-                          addTagToFilter={this.props.addTagToFilter}
-                          removeTagFromFilter={this.props.removeTagFromFilter}
-                        />
+                        <TagCloud tagStyle={{margin: "5px 2px"}}>
+                          {this.props.tagFilterData.map(tag => {
+                            return (
+                              <TagCloud.TagItem
+                                key={tag.tagKey}
+                                tagKey={tag.tagKey}
+                                tagName={tag.tagName}
+                                isSelected={tag.isSelected}
+                                onSelectTag={() => this.props.addTagToFilter(tag.tagKey)}
+                                onDeSelectTag={() => this.props.removeTagFromFilter(tag.tagKey)}
+                              />
+                            )
+                          })
+                          }
+                        </TagCloud>
                       </div>
                       <div className={css.filterTagCloud} style={on ? {} : {display: "none"}}>
-                        <SidebarTagFilterCloud
-                          tagFilterData={this.props.excludeTagFilterData}
-                          addTagToFilter={this.props.addExcludeTagToFilter}
-                          removeTagFromFilter={this.props.removeExcludeTagFromFilter}
-                        />
+                        <TagCloud tagStyle={{margin: "5px 2px"}}>
+                          {this.props.excludeTagFilterData.map(tag => {
+                            return (
+                              <TagCloud.TagItem
+                                key={tag.tagKey}
+                                tagKey={tag.tagKey}
+                                tagName={tag.tagName}
+                                isSelected={tag.isSelected}
+                                onSelectTag={() => this.props.addExcludeTagToFilter(tag.tagKey)}
+                                onDeSelectTag={() => this.props.removeExcludeTagFromFilter(tag.tagKey)}
+                              />
+                            )
+                          })
+                          }
+                        </TagCloud>
                       </div>
                     </div>
                   </Box>
                 </div>
-
-                
-                
               </React.Fragment>
           )
           }}
@@ -137,6 +154,7 @@ SidebarFilter.propTypes = {
   tagFilterData: PropTypes.arrayOf(
     PropTypes.shape({
       tagKey: PropTypes.string,
+      tagName: PropTypes.string,
       tagPosition: PropTypes.number,
       isSelected: PropTypes.bool
     })

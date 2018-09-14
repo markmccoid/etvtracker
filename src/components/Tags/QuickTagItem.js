@@ -1,9 +1,7 @@
 import React from 'react';
 import * as css from './styles';
 
-import TagCloud from '../Tags/TagCloud';
-import TagCloud2 from '../Tags/TagCloud2';
-
+import TagCloud from './TagCloud';
 
 const QuickTagItem = (props) => {
   let { show, tagShowData } = props;
@@ -20,27 +18,21 @@ const QuickTagItem = (props) => {
             Tags
           </div>
           <div>
-            {/* <TagCloud
-              tagsArray={tagShowData}
-              onClickIsMember={props.actionCreators.removeTagFromShow}
-              onClickIsNotMember={props.actionCreators.addTagToShow}
-              showId={show.showId}
-            /> */}
-            <TagCloud2 tagStyle={{margin: "5px 2px"}}>
+            <TagCloud tagStyle={{margin: "5px 2px"}}>
               {tagShowData.map(tag => {
                 return (
-                  <TagCloud2.TagItem
+                  <TagCloud.TagItem
                     key={tag.tagKey}
                     tagKey={tag.tagKey}
                     tagName={tag.tagName}
                     isSelected={tag.isMember}
-                    ifTagSelected={() => props.actionCreators.removeTagFromShow(tag.memberKey || null, tag.tagKey)}
-                    ifTagNotSelected={() => props.actionCreators.addTagToShow(show.showId || null, tag.tagKey)}
+                    onSelectTag={() => props.actionCreators.addTagToShow(show.showId || null, tag.tagKey)}
+                    onDeSelectTag={() => props.actionCreators.removeTagFromShow(tag.memberKey || null, tag.tagKey)}
                   />
                 )
               })
               }
-            </TagCloud2>
+            </TagCloud>
           </div>
       </div>
       </div>
