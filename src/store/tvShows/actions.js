@@ -35,7 +35,7 @@ export const UPDATE_TAG_POSITION = 'UPDATE_TAG_POSITION';
 export const ADD_TAG_TO_SHOW = 'ADD_TAG_TO_SHOW';
 export const UPDATE_SHOW_POSITION_IN_TAG = 'UPDATE_SHOW_POSITION_IN_TAG';
 export const REMOVE_TAG_FROM_SHOW = 'REMOVE_TAG_FROM_SHOW';
-export const SET_TV_FILTER_ARRAY = 'SET_TV_FILTER_ARRAY';
+export const SET_TV_FILTER_AND_FLAG = 'SET_TV_FILTER_AND_FLAG';
 export const ADD_TAG_TO_FILTER = 'ADD_TAG_TO_FILTER';
 export const REMOVE_TAG_FROM_FILTER = 'REMOVE_TAG_FROM_FILTER';
 export const ADD_EXCLUDE_TAG_TO_FILTER = 'ADD_EXCLUDE_TAG_TO_FILTER';
@@ -53,7 +53,7 @@ export const {
   deleteTvShow,
   setTvShowError,
   setTvSearchterm,
-  setTvFilterArray,
+  setTvFilterAndFlag,
   addTagToFilter,
   removeTagFromFilter,
   addExcludeTagToFilter,
@@ -76,7 +76,7 @@ export const {
     INIT_DATA,
     SET_TV_SHOW_ERROR,
     SET_TV_SEARCHTERM,
-    SET_TV_FILTER_ARRAY,
+    SET_TV_FILTER_AND_FLAG,
     ADD_TAG_TO_FILTER,
     REMOVE_TAG_FROM_FILTER,
     ADD_EXCLUDE_TAG_TO_FILTER,

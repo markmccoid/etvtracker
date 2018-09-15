@@ -22,7 +22,7 @@ class SidebarFilter extends React.Component {
     this.setState({
       [stateProp]: val
     },
-      () => this.props.onFilterChange({ tagFilter:this.state.filterTags, andFlag: this.state.andFlag})
+      () => this.props.onFilterChange(this.state.andFlag)
     );
   }
 
@@ -102,7 +102,6 @@ class SidebarFilter extends React.Component {
                             return (
                               <TagCloud.TagItem
                                 key={tag.tagKey}
-                                tagKey={tag.tagKey}
                                 tagName={tag.tagName}
                                 isSelected={tag.isSelected}
                                 onSelectTag={() => this.props.addTagToFilter(tag.tagKey)}
@@ -119,7 +118,6 @@ class SidebarFilter extends React.Component {
                             return (
                               <TagCloud.TagItem
                                 key={tag.tagKey}
-                                tagKey={tag.tagKey}
                                 tagName={tag.tagName}
                                 isSelected={tag.isSelected}
                                 onSelectTag={() => this.props.addExcludeTagToFilter(tag.tagKey)}

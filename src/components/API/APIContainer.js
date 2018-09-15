@@ -15,18 +15,16 @@ class APIContainer extends React.Component {
       <div><h3>API Container</h3>
       <TagCloud>
         <TagCloud.TagItem 
-          tagKey={this.state.tag1.key}
           tagName={this.state.tag1.name}
           isSelected={this.state.tag1.isSelected}
-          ifTagSelected={() => {console.log('running'); this.setState({tag1: {key: 'a', name: 'tag1', isSelected: false}})}}
-          ifTagNotSelected={() => this.setState((prevState) => ({tag1: {...prevState.tag1, isSelected: true}}))}
+          onSelectTag={() => {console.log('running'); this.setState({tag1: {key: 'a', name: 'tag1', isSelected: false}})}}
+          onDeSelectTag={() => this.setState((prevState) => ({tag1: {...prevState.tag1, isSelected: true}}))}
         />
         <TagCloud.TagItem 
-          tagKey={this.state.tag2.key}
           tagName={this.state.tag2.name}
           isSelected={this.state.tag2.isSelected}
-          ifTagSelected={() => this.setState((prevState) => ({tag2: {...prevState.tag2, isSelected: false}}))}
-          ifTagNotSelected={() => this.setState((prevState) => ({tag2: {...prevState.tag2, isSelected: true}}))}
+          onSelectTag={() => this.setState((prevState) => ({tag2: {...prevState.tag2, isSelected: false}}))}
+          onDeSelectTag={() => this.setState((prevState) => ({tag2: {...prevState.tag2, isSelected: true}}))}
         />
       </TagCloud>
       <Toggle>

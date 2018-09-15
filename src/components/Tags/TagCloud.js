@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { Tag } from 'antd';
 
 class TagCloud extends React.Component {
-  static TagItem = ({ tagKey, tagName, isSelected, onDeSelectTag, onSelectTag, ...props}) => {
-
-    return <Tag.CheckableTag key={tagKey} 
+  static TagItem = ({ tagName, isSelected, onDeSelectTag, onSelectTag, ...props}) => {
+    return <Tag.CheckableTag
       style={props.tagStyle ? props.tagStyle : { margin: "5px 2px"}}
       checked={isSelected}
       onChange={() => {
@@ -30,7 +29,11 @@ class TagCloud extends React.Component {
   }
 }
 
-TagCloud.propTypes = {
+TagCloud.TagItem.propTypes = {
+  tagName: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onDeSelectTag: PropTypes.func.isRequired,
+  onSelectTag: PropTypes.func.isRequired,
 }
 
 export default TagCloud;

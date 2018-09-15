@@ -111,7 +111,6 @@ const TVDetail = (props) => {
                 return (
                   <TagCloud.TagItem
                     key={tag.tagKey}
-                    tagKey={tag.tagKey}
                     tagName={tag.tagName}
                     isSelected={tag.isMember}
                     onSelectTag={() => props.addTagToShow(props.showData.showId || null, tag.tagKey)}

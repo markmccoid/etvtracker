@@ -1,13 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getAllShowData } from '../../../store/tvShows';
+import { getAllShowData,
+  getSidebarData,
+  getTagFilterData,
+  addTagToFilter,
+  removeTagFromFilter } from '../../../store/tvShows';
 
 class TVCoverViewContainer extends React.Component {
   render() {
-    console.log('CV', this.props.showDataArray)
+    console.log('andflag', this.props.andFlag)
     return (
-      this.props.children(this.props.showDataArray)
+      this.props.children({
+          showDataArray: this.props.sidebarData,
+          tagFilterData: this.props.tagFilterData,
+          addTagToFilter: this.props.addTagToFilter,
+          removeTagFromFilter: this.props.removeTagFromFilter,
+          andFlag: this.props.andFlag,
+        })
     )
   }
 }
@@ -15,9 +25,21 @@ class TVCoverViewContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     showDataArray: getAllShowData(state.TV.showData),
+    sidebarData: getSidebarData(state.TV.showData, 
+      state.TV.searchData.searchTerm, 
+      state.TV.tagData,
+      state.TV.searchData.tagFilters,
+      state.TV.searchData.andFlag,
+      state.TV.searchData.excludeTagFilters
+    ),
+    tagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.tagFilters),
+    andFlag: state.TV.searchData.andFlag
   }
 }
-export default connect(mapStateToProps)(TVCoverViewContainer);
+export default connect(mapStateToProps, {
+  addTagToFilter,
+  removeTagFromFilter
+})(TVCoverViewContainer);
 
 //! showDataArray layout
 // backdropPath: "https://image.tmdb.org/t/p/w300/ilKE2RPD8tkynAOHefX9ZclG1yq.jpg"

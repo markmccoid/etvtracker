@@ -320,7 +320,9 @@ export const getUserEpisodeData = (showId, userData) => {
 }
 
 /**
- * Returns an array of Tag data.  All tags, plus a flag "isMember" telling if the show is a member of the tag
+ * Returns an array of Tag data.  
+ * All tags, plus a flag "isMember" telling if the show is a member of the tag
+ * Used when displaying tag info for specific shows (TVDetail, QuickTags)
  * 
  * @param {number} showId - Id of show to return data for
  * @param {object} tagData - Object of tagData
@@ -383,17 +385,20 @@ export const getTagDataWithMembers = (tagData) => {
 }
 
 /**
- * Takes in all tags and the list of selected tags and return
+ * Takes in all tags and the list of selected tags and returns
  * an array of tag objects with bool isSelected set for each tagKey
+ * Used for setting Include AND exclude filters.
  * [
  *  {
  *    tagKey,
+ *    tagName,
  *    tagPosition,
  *    isSelected
  *  }
  * ]
  * 
  * @param {object} tagData - Object of tagData
+ * @param {array} selectedTags - Array of selected tags
  * @returns {array} Returns an Array of objects of tag info
  */
 export const getTagFilterData = (tagData, selectedTags = []) => {

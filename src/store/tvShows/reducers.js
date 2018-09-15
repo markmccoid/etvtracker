@@ -368,8 +368,9 @@ const searchDataReducer = handleActions({
   SET_TV_SEARCHTERM: (state, action) => {
     return { ...state, searchTerm: action.payload }
   },
-  SET_TV_FILTER_ARRAY: (state, action) => {
-    return { ...state, tagFilter: action.payload.tagFilter, andFlag: action.payload.andFlag }
+  SET_TV_FILTER_AND_FLAG: (state, action) => {
+    console.log('tv filter array', action)
+    return { ...state, andFlag: action.payload }
   },
   ADD_TAG_TO_FILTER: (state, action) => {
     let newTagFilters = state.tagFilters ? [ ...state.tagFilters ] : [];

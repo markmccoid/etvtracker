@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { firebase } from '../../firebase/firebase';
 import { State } from 'react-powerplug'
-import { Button } from 'antd';
 
 import * as myStyle from './Style';
 // Get Redux stuff

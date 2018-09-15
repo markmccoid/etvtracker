@@ -5,13 +5,14 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import SidebarList from './SidebarList';
 import SidebarSearch from './SidebarSearch';
 import SidebarFilter from './SidebarFilter';
+import LoadingPage from '../common/LoadingPage';
 
 import { getSidebarData,
   getTagDataArray,
   getTagFilterData, 
   getTagFilterSummary,
   setTvSearchterm, 
-  setTvFilterArray, 
+  setTvFilterAndFlag, 
   startUpdateShowPositionInTag,
   addTagToFilter,
   removeTagFromFilter,
@@ -53,12 +54,13 @@ class SidebarContainer extends React.Component {
     // Currently just updating the first tagKey
     this.props.startUpdateShowPositionInTag(this.props.tagFilters[0], newPositionMap);
   }
-  _onFilterChange = (filterArray) => this.props.setTvFilterArray(filterArray)
+  _onFilterChange = (filterArray) => this.props.setTvFilterAndFlag(filterArray)
   _onSearchTermUpdate = (searchTerm) => this.props.setTvSearchterm(searchTerm);
 
   render() {
     return (
       <div style={{display: "flex", flexDirection: "column"}}>
+      {this.props.sidebarData.length ? null : <LoadingPage /> }
         <SidebarSearch history={this.props.history} onSearchTermUpdate={this._onSearchTermUpdate} searchTerm={this.props.searchTerm}/>
         <SidebarFilter 
           tagsArray={this.props.tagsArray} 
@@ -102,7 +104,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 export default connect(mapStateToProps, 
   { setTvSearchterm, 
-    setTvFilterArray, 
+    setTvFilterAndFlag, 
     startUpdateShowPositionInTag,
     addTagToFilter,
     removeTagFromFilter,
