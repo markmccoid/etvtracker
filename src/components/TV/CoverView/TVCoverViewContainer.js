@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getAllShowData,
   getSidebarData,
   getTagFilterData,
+  setTvFilterAndFlag,
   addTagToFilter,
   removeTagFromFilter } from '../../../store/tvShows';
 
@@ -16,6 +17,7 @@ class TVCoverViewContainer extends React.Component {
           tagFilterData: this.props.tagFilterData,
           addTagToFilter: this.props.addTagToFilter,
           removeTagFromFilter: this.props.removeTagFromFilter,
+          setTvFilterAndFlag: this.props.setTvFilterAndFlag,
           andFlag: this.props.andFlag,
         })
     )
@@ -37,6 +39,7 @@ const mapStateToProps = (state) => {
   }
 }
 export default connect(mapStateToProps, {
+  setTvFilterAndFlag,
   addTagToFilter,
   removeTagFromFilter
 })(TVCoverViewContainer);
