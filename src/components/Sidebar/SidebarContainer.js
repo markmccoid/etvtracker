@@ -54,7 +54,7 @@ class SidebarContainer extends React.Component {
     // Currently just updating the first tagKey
     this.props.startUpdateShowPositionInTag(this.props.tagFilters[0], newPositionMap);
   }
-  _onFilterChange = (filterArray) => this.props.setTvFilterAndFlag(filterArray)
+  _onSetTVAndFlag = (andFlag) => this.props.setTvFilterAndFlag(andFlag)
   _onSearchTermUpdate = (searchTerm) => this.props.setTvSearchterm(searchTerm);
 
   render() {
@@ -66,7 +66,8 @@ class SidebarContainer extends React.Component {
           tagsArray={this.props.tagsArray} 
           tagFilterData={this.props.tagFilterData}
           excludeTagFilterData={this.props.excludeTagFilterData}
-          onFilterChange={this._onFilterChange} 
+          setTVAndFlag={this._onSetTVAndFlag}
+          andFlag={this.props.andFlag} 
           tagFilterSummary={this.props.tagFilterSummary}
           addTagToFilter={this.props.addTagToFilter}
           removeTagFromFilter={this.props.removeTagFromFilter}
@@ -95,6 +96,7 @@ const mapStateToProps = (state, ownProps) => {
     tagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.tagFilters),
     excludeTagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.excludeTagFilters),
     tagFilters: state.TV.searchData.tagFilters,
+    andFlag: state.TV.searchData.andFlag,
     tagFilterSummary: getTagFilterSummary(state.TV.tagData, 
       state.TV.searchData.tagFilters, 
       state.TV.searchData.andFlag,

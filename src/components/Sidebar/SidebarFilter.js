@@ -10,22 +10,6 @@ import TagCloud from '../Tags/TagCloud';
 const Option = Select.Option;
 
 class SidebarFilter extends React.Component {
-  state = {
-    filterTags: [],
-    andFlag: false,
-    linkToggle: false,
-  }
-  componentDidMount() {
-    this.props.onFilterChange({ tagFilter:this.state.filterTags, andFlag: this.state.andFlag})
-  }
-  _onFilterChange = (stateProp, val) => {
-    this.setState({
-      [stateProp]: val
-    },
-      () => this.props.onFilterChange(this.state.andFlag)
-    );
-  }
-
   render() {
     let { tagsSelected, filterMode, excludeTagsSelected } = this.props.tagFilterSummary;
 
@@ -85,9 +69,9 @@ class SidebarFilter extends React.Component {
                     >
                     <div style={on ? { display: "flex", flexDirection: "column"} : {display: "none"}}>
                       <Select
-                          onChange={(val) => this._onFilterChange('andFlag', val==='and' ? true : false)}
+                          onChange={(val) => this.props.setTVAndFlag(val==='and' ? true : false)}
                           defaultValue="or"
-                          value={this.state.andFlag ? 'and' : 'or'}
+                          value={this.props.andFlag ? 'and' : 'or'}
                           style={{fontWeight: "bold"}}
                       >
                           <Option key="and">And</Option>
@@ -157,6 +141,7 @@ SidebarFilter.propTypes = {
       isSelected: PropTypes.bool
     })
   ),
+  andFlag: PropTypes.bool,
   onFilterChange: PropTypes.func,
   addTagToFilter: PropTypes.func,
   removeTagFromFilter: PropTypes.func,
