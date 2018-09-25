@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 import { startLogout } from '../../store/auth';
-import { startAddTVShow } from '../../store/tvShows';
+import { getAllShowData, startAddTVShow } from '../../store/tvShows';
 
 import Header from '../Header/Header';
 import TVContainer from '../TV/TVContainer';
@@ -24,7 +24,7 @@ class Main extends React.Component {
           <Route exact path="/" render={() => <Redirect to="/tv" />} />
           <Route path="/tv" component={SidebarContainer} />
           <Route path="/tv/detail/:id" component={TVContainer} />
-          <Route path="/tv/add" render={(props) => <TVAdd {...props} startAddTVShow={this.props.startAddTVShow} />} />
+          <Route path="/tv/add" render={(props) => <TVAdd {...props} showIds={this.props.showIds} startAddTVShow={this.props.startAddTVShow} />} />
         </MainGrid>
           <Route path="/tvtags" component={TVTagEditor} />
           <Route path="/tvcoverview" component={TVCover} />
@@ -36,7 +36,8 @@ class Main extends React.Component {
 
 const mapStateToProps = (state) => {
   return ({
-    userEmail: state.auth.email
+    userEmail: state.auth.email,
+    showIds: getAllShowData(state.TV.showData).map(show => (show.showId)),
   })
 }
 export default connect(mapStateToProps, { startLogout, startAddTVShow })(Main);

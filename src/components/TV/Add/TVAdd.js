@@ -26,7 +26,7 @@ class TVAdd extends React.Component {
         />
         <Route 
           path="/tv/add/:searchTerm" 
-          render={(props) => <TVAddResults {...props} startAddTVShow={this.props.startAddTVShow} />}
+          render={(props) => <TVAddResults {...props} showIds={this.props.showIds} startAddTVShow={this.props.startAddTVShow} />}
           />
         
       </div>
