@@ -16,16 +16,28 @@ const TVAddItem = (props) => {
       <div className={css.AddItemRow1}>
         <img className={css.TVImage} alt={props.show.name} src={props.show.backdropURL} />
          <div className={css.TVDetailWrapper}>
-          <div className={css.TVTitle}>{props.show.name}</div>
+          <div className={css.TVTitle}>
+            {!props.show.exists ? 
+              props.show.name
+            :
+              <a onClick={() => props.history.push(`/tv/detail/${props.show.id}`)}>{props.show.name}</a>
+            }
+          </div>
           <div className={css.TVOverview}>{props.show.overview}</div>
         </div>
       </div>
       <div className={css.TVAddButton}>
-        <Button 
-          type="primary" 
-          icon="plus"
-          onClick={addTVShow}
-        >Add</Button>
+        {!props.show.exists ? 
+          <Button 
+            type="primary" 
+            icon="plus"
+            onClick={addTVShow}
+          >Add</Button>
+          :
+          <div>Show Already in Your Library - 
+          <a onClick={() => props.history.push(`/tv/detail/${props.show.id}`)}>{props.show.name}</a>
+          </div>
+        }
       </div>
     </div>
   )
