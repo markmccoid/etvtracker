@@ -7,6 +7,7 @@ This application is an Electron based TV Tracker with data stored in a firebase 
 
 You will need to create a **.env** file, which will hold the firebase connection details:
 
+Also, the app uses react app rewired to be able to use .babelrc file.
 ```
 REACT_APP_TMDB_API_KEY=
 REACT_APP_FB_APIKEY=
