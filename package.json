@@ -17,25 +17,22 @@
     "alertifyjs": "^1.11.1",
     "antd": "^3.6.6",
     "axios": "^0.18.0",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-emotion": "^9.2.4",
-    "babel-plugin-import": "^1.8.0",
-    "babel-preset-env": "^1.7.0",
+
     "concurrently": "^3.6.0",
     "devtron": "^1.4.0",
     "dotenv": "^6.0.0",
     "electron": "^2.0.4",
     "electron-builder": "^20.19.1",
-    "emotion": "^9.2.4",
+    "emotion": "^9.2.12",
     "firebase": "^5.2.0",
     "moment": "^2.22.2",
     "react-app-rewired": "^1.5.2",
     "react-beautiful-dnd": "^8.0.3",
-    "react-emotion": "^9.2.4",
+    "react-emotion": "^9.2.12",
     "react-powerplug": "^1.0.0-rc.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
+    "react-scripts": "2.0.3",
     "redux": "^4.0.0",
     "redux-actions": "^2.4.0",
     "redux-freeze": "^0.1.5",
@@ -50,7 +47,8 @@
   "main": "public/electron.js",
   "scripts": {
     "start": "react-app-rewired start",
-    "electron-dev": "concurrently  \"yarn start\" \"wait-on http://localhost:3000 && electron .",
+    "start2": "react-scripts start",
+    "electron-dev": "concurrently  \"yarn start2\" \"wait-on http://localhost:3000 && electron .",
     "build": "react-app-rewired build",
     "electron-pack": "build --em.main=build/electron.js",
     "pack": "electron-builder --dir",
@@ -60,7 +58,7 @@
     "docs": "jsdoc2md src/datamodel/*.js > datamodel.md"
   },
   "build": {
-    "appId": "com.example.electron-cra",
+    "appId": "com.mccoidco.tvtracker",
     "files": [
       "build/**/*",
       "node_modules/**/*"
@@ -77,5 +75,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

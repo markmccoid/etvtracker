@@ -103,9 +103,10 @@ const userDataReducer = handleActions({
     //return { ..._.keyBy(_.filter(state, (show) => show.showId !== action.payload), 'showId') }
     let newState = { ...state }
     let showStateLinks = { ...newState[action.payload.showId].links }
+    
     delete showStateLinks[action.payload.linkKey];
 
-    return { ...newState, [action.payload.showId]: { links: {...showStateLinks}} }
+    return { ...newState, [action.payload.showId]: { ...newState[action.payload.showId], links: {...showStateLinks}} }
   },
   UPDATE_USER_EPISODE_DATA: (state, action) => {
     // Update the download state action.payload = { showId, seasonId, EpisodeId, checkboxState }

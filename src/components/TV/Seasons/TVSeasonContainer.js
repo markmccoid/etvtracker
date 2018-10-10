@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { cx } from 'react-emotion';
+import { cx } from 'react-emotion/macro';
 import { Collapse, Icon, Badge, Popover } from 'antd';
 import _ from 'lodash';
 import  * as css from './TVSeasonStyle';

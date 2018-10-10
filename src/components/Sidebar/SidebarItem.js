@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { listItemContainer, ListItemLink } from './Style';
 import { formatDateFromStorage } from '../../utils/dates';
-import { cx } from 'react-emotion';
+import { cx } from 'react-emotion/macro';
 
 import  * as ecss from './Style';
 

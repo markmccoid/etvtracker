@@ -1,4 +1,4 @@
-import { css } from 'react-emotion';
+import { css } from 'react-emotion/macro';
 
 export const seasonWrapper = css`
   max-width: 800px;

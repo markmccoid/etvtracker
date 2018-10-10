@@ -1,4 +1,6 @@
-import styled, { css } from 'react-emotion';
+import styled, { css } from 'react-emotion/macro';
+ 
+ 
 
 export const tagContainer = css`
   display: flex;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Icon, Tooltip, Popover  } from 'antd';
-import { cx } from 'react-emotion';
+import { cx } from 'react-emotion/macro';
 import * as css from './TVSeasonStyle';
 import TVEpisode from './TVEpisode';
 

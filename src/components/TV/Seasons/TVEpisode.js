@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
-import { cx } from 'react-emotion';
+import { cx } from 'react-emotion/macro';
 import * as css from './TVSeasonStyle';
 
 import TVEpisodeDetail from './TVEpisodeDetail';
