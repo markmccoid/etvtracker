@@ -4,7 +4,13 @@ export const wrapper = css`
   display: flex;
   flex-direction: column;
 `;
-export const titleContainer = css``;
+export const titleContainer = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 55px;
+`;
+
 
 export const showContainer = css`
   display: flex;

@@ -12,6 +12,7 @@ import { getSidebarData,
   getTagFilterData, 
   getTagFilterSummary,
   setTvSearchterm, 
+  setTvSort,
   setTvFilterAndFlag, 
   startUpdateShowPositionInTag,
   addTagToFilter,
@@ -56,12 +57,18 @@ class SidebarContainer extends React.Component {
   }
   _onSetTVAndFlag = (andFlag) => this.props.setTvFilterAndFlag(andFlag)
   _onSearchTermUpdate = (searchTerm) => this.props.setTvSearchterm(searchTerm);
-
+  _onSortByUpdate = (sortBy) => this.props.setTvSort(sortBy);
   render() {
     return (
       <div style={{display: "flex", flexDirection: "column"}}>
-      {this.props.sidebarData.length ? null : <LoadingPage /> }
-        <SidebarSearch history={this.props.history} onSearchTermUpdate={this._onSearchTermUpdate} searchTerm={this.props.searchTerm}/>
+      {!this.props.sidebarData.length && !this.props.searchTerm ? <LoadingPage /> : null }
+        <SidebarSearch 
+          history={this.props.history} 
+          onSearchTermUpdate={this._onSearchTermUpdate} 
+          searchTerm={this.props.searchTerm}
+          sortBy={this.props.sortBy}
+          onSortByUpdate={this._onSortByUpdate}
+        />
         <SidebarFilter 
           tagsArray={this.props.tagsArray} 
           tagFilterData={this.props.tagFilterData}
@@ -89,9 +96,11 @@ const mapStateToProps = (state, ownProps) => {
       state.TV.tagData,
       state.TV.searchData.tagFilters,
       state.TV.searchData.andFlag,
-      state.TV.searchData.excludeTagFilters
+      state.TV.searchData.excludeTagFilters,
+      state.TV.searchData.sortBy,
     ),
     searchTerm: state.TV.searchData.searchTerm,
+    sortBy: state.TV.searchData.sortBy,
     tagsArray: getTagDataArray(null, state.TV.tagData),
     tagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.tagFilters),
     excludeTagFilterData: getTagFilterData(state.TV.tagData, state.TV.searchData.excludeTagFilters),
@@ -105,7 +114,8 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 export default connect(mapStateToProps, 
-  { setTvSearchterm, 
+  { setTvSearchterm,
+    setTvSort, 
     setTvFilterAndFlag, 
     startUpdateShowPositionInTag,
     addTagToFilter,

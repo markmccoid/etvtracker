@@ -3,8 +3,9 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import SidebarItem from './SidebarItem';
 
-import { ListContainer } from './Style';
+import { ListContainer, listItemContainer } from './Style';
 
+const NullSearch = () => (<div className={listItemContainer} style={{padding: "5px"}}>No Shows Found</div>)
 
 const SidebarList = (props) => {
   const getListStyle = isDraggingOver => ({
@@ -33,7 +34,8 @@ const SidebarList = (props) => {
           ref={provided.innerRef}
           style={getListStyle(snapshot.isDraggingOver)}
         >
-          {props.sidebarData.map((show, index) => {
+          {props.sidebarData.length ? 
+            props.sidebarData.map((show, index) => {
               return <Draggable key={show.showId} draggableId={show.showId} index={index}>
                 {(provided, snapshot) => (
 
@@ -42,12 +44,13 @@ const SidebarList = (props) => {
                       showItemData={show}
                       provided={provided} 
                       snapshot={snapshot} />
-                  
-                )
+                  )
                 }
               </Draggable>
               }
             )
+            :
+            <NullSearch />
           }
           {provided.placedholder}
         </div>

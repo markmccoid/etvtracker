@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input } from 'antd';
+import { Button, Input, Icon, Radio } from 'antd';
 
 const SearchInput = Input.Search;
 
@@ -20,7 +20,19 @@ class SidebarSearch extends React.Component {
 
     return (
       <div>
-        
+        Date: 
+        <Button size="small" shape="circle" type="primary"
+          onClick={() => this.props.onSortByUpdate(this.props.sortBy === 'date-asc' ? 'date-desc' : 'date-asc')} 
+        >
+          <Icon type={this.props.sortBy === 'date-asc' ? "caret-up" : "caret-down"} />
+        </Button>
+        Name: 
+        <Button size="small" shape="circle" type="primary"
+          onClick={() => this.props.onSortByUpdate(this.props.sortBy === 'name-asc' ? 'name-desc' : 'name-asc')} 
+        >
+          <Icon type={this.props.sortBy === 'name-asc' ? "caret-up" : "caret-down"} />
+        </Button>
+
         <SearchInput 
           ref={this.inputRef}
           placeholder="Find show in library" 

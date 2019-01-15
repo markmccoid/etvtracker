@@ -362,12 +362,16 @@ const errorDataReducer = (state = errorDataDefault, action) => {
 const searchDataDefault = {
   searchTerm: undefined,
   andFlag: false,
-  tagFilters: []
+  tagFilters: [],
+  sortBy: 'name',
 };
 
 const searchDataReducer = handleActions({
   SET_TV_SEARCHTERM: (state, action) => {
     return { ...state, searchTerm: action.payload }
+  },
+  SET_TV_SORT: (state, action) => {
+    return { ...state, sortBy: action.payload }
   },
   SET_TV_FILTER_AND_FLAG: (state, action) => {
     console.log('tv filter array', action)

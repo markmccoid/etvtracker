@@ -19,7 +19,8 @@ const initialState = {
     searchData: {
       searchTerm: undefined,
       andFlag: false,
-      tagFilters: []
+      tagFilters: [],
+      sortBy: 'name',
     }
   },
   auth: {

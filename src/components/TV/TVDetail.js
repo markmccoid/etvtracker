@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import TVLinks from './TVLinks';
 import TagCloud from '../Tags/TagCloud';
+import { formatDateFromStorage } from '../../utils'
 
 const TVDetail = (props) => {
   const onDeleteShow = () => {
@@ -54,6 +55,17 @@ const TVDetail = (props) => {
         <div className={css.title}>
           {props.showData.name}
         </div>
+        <div style={{display: "flex", alignItems: "center"}}>
+          <div className={css.title} style={{fontSize: ".8rem"}}>Last Refresh - {formatDateFromStorage(props.showData.lastRefresh)}</div>      
+          <Button 
+            icon="redo" 
+            type="primary" 
+            onClick={() => props.startRefreshTvShow(props.showData.showId, '', true)}
+          >
+             Refresh
+          </Button>
+        </div>
+      
       </div>
       <div className={css.showContainer}>
         <div className={css.imageContainer}>

@@ -13,7 +13,14 @@ import { getNextEpisode } from './helpers';
  * @param {array} excludeTagFilters - tagKeys whose members are to be exluded
  * @returns {string[]} Returns an array of objects with needed show data
  */
-export const getSidebarData = (showData, searchTerm = '', tagData, tagFilters = [], andFlag = true, excludeTagFilters = []) => {
+export const getSidebarData = (showData, 
+    searchTerm = '', 
+    tagData, 
+    tagFilters = [], 
+    andFlag = true, 
+    excludeTagFilters = [],
+    sortBy = undefined,
+  ) => {
   let filteredShowData = _.sortBy(showData, ['name']);
   // - getMembers for tagFilter
   let members = getMembers(tagData, tagFilters, andFlag)
@@ -24,6 +31,7 @@ export const getSidebarData = (showData, searchTerm = '', tagData, tagFilters = 
       return { ...showData[showId] } 
     });
   }
+  
   // get members to exclude
   let excludeMembers = getMembers(tagData, excludeTagFilters, false)
   let availableMembers = _.map(filteredShowData, 'showId');
@@ -35,6 +43,20 @@ export const getSidebarData = (showData, searchTerm = '', tagData, tagFilters = 
   // Apply searchTerm and return showObj with show data
   filteredShowData = _.map(_.filter(filteredShowData, (showObj) => showObj.name.toLowerCase().includes(searchTerm)),
                         (showObj) => showObj);
+  // check sort option
+  switch (sortBy) {
+    case 'date-desc':
+      filteredShowData = _.reverse(_.sortBy(filteredShowData,'nextEpisodeDate'));
+      break;
+    case 'date-asc':
+      filteredShowData = _.sortBy(filteredShowData,'nextEpisodeDate');
+      break;
+    case 'name-desc':
+      filteredShowData = _.reverse(_.sortBy(filteredShowData,'name'));
+      break;
+    default:
+      break;
+  }
   return filteredShowData;
 }
 
@@ -210,7 +232,6 @@ export const getCurrentSeasons = (showId, seasonData, userData) => {
   // lodash's .keyBy does this for us.
   // Also we need to filter out the showId key
   Object.keys(seasonUserDataTemp).filter((seasonKey) => seasonKey !== 'showId').forEach(seasonKey => {
-
     // Before converting Array to an object, count the number of watched and downloaded episodes in the season
     let totalEpisodes = currSeasons[seasonKey].episodes.length;
     // let watchedEpisodes = seasonUserDataTemp[seasonKey].episodes.filter(episode => episode.watched === true).length;
@@ -238,7 +259,8 @@ export const getCurrentSeasons = (showId, seasonData, userData) => {
     let workingUserSeason = seasonUserData[seasonKey] ? seasonUserData[seasonKey] : { seasons: {episodes: {}}};
   
     // showId is a key and doesn't have season info in it, so skip it
-    if (seasonKey !== 'showId') {
+    // and if there are no episodes array, then skip
+    if (seasonKey !== 'showId' && workingSeason.episodes.length !== undefined) {
       let episodes = [...workingSeason.episodes];
       let userEpisodes =  { ...workingUserSeason.episodes };
       // get the summary data built during the userdata extract

@@ -43,6 +43,7 @@ class TVContainer extends React.Component {
         extraData={this.props.extraData}
         userLinks={this.props.userLinks}
         startDeleteTVShow={this.props.startDeleteTVShow}
+        startRefreshTvShow={this.props.startRefreshTvShow}
         routeToTV={() => this.props.history.push("/tv")}
         tagsArray={this.props.tagsArray}
         toggleImagePicker={this._onToggleImagePicker}

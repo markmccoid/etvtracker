@@ -24,7 +24,6 @@ export const INIT_DATA = 'INIT_DATA';
 export const ADD_TV_SHOW = 'ADD_TV_SHOW';
 export const DELETE_TV_SHOW = 'DELETE_TV_SHOW';
 export const SET_TV_SHOW_ERROR = 'SET_TV_SHOW_ERROR';
-export const SET_TV_SEARCHTERM = 'SET_TV_SEARCHTERM';
 export const UPDATE_USER_EPISODE_DATA = 'UPDATE_USER_EPISODE_DATA';
 export const UPDATE_ALL_USER_FLAGS = 'UPDATE_ALL_USER_FLAGS';
 export const UPDATE_TV_IMAGE_POSTER = 'UPDATE_TV_IMAGE_POSTER';
@@ -42,7 +41,9 @@ export const ADD_EXCLUDE_TAG_TO_FILTER = 'ADD_EXCLUDE_TAG_TO_FILTER';
 export const REMOVE_EXCLUDE_TAG_FROM_FILTER = 'REMOVE_EXCLUDE_TAG_FROM_FILTER';
 export const ADD_LINK_TO_SHOW = 'ADD_LINK_TO_SHOW';
 export const REMOVE_LINK_FROM_SHOW = 'REMOVE_LINK_FROM_SHOW';
-
+// -- TV Show filters
+export const SET_TV_SEARCHTERM = 'SET_TV_SEARCHTERM';
+export const SET_TV_SORT = 'SET_TV_SORT';
 // ************************************************
 // - CREATE ACTION CREATORS
 // ************************************************
@@ -53,6 +54,7 @@ export const {
   deleteTvShow,
   setTvShowError,
   setTvSearchterm,
+  setTvSort,
   setTvFilterAndFlag,
   addTagToFilter,
   removeTagFromFilter,
@@ -76,6 +78,7 @@ export const {
     INIT_DATA,
     SET_TV_SHOW_ERROR,
     SET_TV_SEARCHTERM,
+    SET_TV_SORT,
     SET_TV_FILTER_AND_FLAG,
     ADD_TAG_TO_FILTER,
     REMOVE_TAG_FROM_FILTER,
@@ -140,13 +143,13 @@ export const startAddTVShow = (showId) => {
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // -- REFRESH TV SHOW ( REFRESH_TV_SHOW )
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-export const startRefreshTvShow = (showId, showStatus) => {
+export const startRefreshTvShow = (showId, showStatus, forceRefresh = false) => {
   return (dispatch, getState) => {
     // if the show is ended, do not update
     let lastRefresh = moment(getState().TV.showData[showId].lastRefresh);
     let today = moment(new Date());
-    
-    if (showStatus === 'Ended' || lastRefresh.isSame(today, 'day')) {
+
+    if ((showStatus === 'Ended' || lastRefresh.isSame(today, 'day')) && !forceRefresh) {
       return null;
     }
     let uid = getState().auth.uid;
