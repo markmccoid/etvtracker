@@ -24,7 +24,7 @@ function createWindow() {
   // let reduxDevTools = BrowserWindow.addDevToolsExtension(`C:/Users/mark.mccoid/AppData/Local/Google/Chrome/User Data/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.15.3_1`);
   //--- Home
   if (isDev) {
-    let reactDevTools = BrowserWindow.addDevToolsExtension(`C:/Users/Mark/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.5.0_0`);
+    let reactDevTools = BrowserWindow.addDevToolsExtension(`C:/Users/Mark/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.6.0_0`);
     let reduxDevTools = BrowserWindow.addDevToolsExtension(`C:/Users/Mark/AppData/Local/Google/Chrome/User Data/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0`);
   }
  }

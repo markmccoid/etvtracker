@@ -1,7 +1,17 @@
 import React from 'react';
 import { Button, Input, Icon, Radio } from 'antd';
+import styled, { css } from 'react-emotion/macro';
+
 
 const SearchInput = Input.Search;
+
+const SortWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 5px;
+`
 
 class SidebarSearch extends React.Component {
   constructor(props) {
@@ -20,18 +30,25 @@ class SidebarSearch extends React.Component {
 
     return (
       <div>
-        Date: 
-        <Button size="small" shape="circle" type="primary"
-          onClick={() => this.props.onSortByUpdate(this.props.sortBy === 'date-asc' ? 'date-desc' : 'date-asc')} 
-        >
-          <Icon type={this.props.sortBy === 'date-asc' ? "caret-up" : "caret-down"} />
-        </Button>
-        Name: 
-        <Button size="small" shape="circle" type="primary"
-          onClick={() => this.props.onSortByUpdate(this.props.sortBy === 'name-asc' ? 'name-desc' : 'name-asc')} 
-        >
-          <Icon type={this.props.sortBy === 'name-asc' ? "caret-up" : "caret-down"} />
-        </Button>
+        <SortWrapper>
+          <div>
+            Date: 
+            <Button size="small" shape="circle" type="primary" style={{marginLeft: "8px"}}
+              onClick={() => this.props.onSortByUpdate(this.props.sortBy === 'date-asc' ? 'date-desc' : 'date-asc')} 
+            >
+              <Icon type={this.props.sortBy === 'date-asc' ? "caret-up" : "caret-down"} />
+            </Button>
+          </div>
+          <div>
+            Named: 
+            <Button size="small" shape="circle" type="primary" style={{marginLeft: "8px"}}d
+              onClick={() => this.props.onSortByUpdate(this.props.sortBy === 'name-asc' ? 'name-desc' : 'name-asc')} 
+            >
+              <Icon type={this.props.sortBy === 'name-asc' ? "caret-up" : "caret-down"} />
+            </Button>
+          </div>
+          
+        </SortWrapper>
 
         <SearchInput 
           ref={this.inputRef}
