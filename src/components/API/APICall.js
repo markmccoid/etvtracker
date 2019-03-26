@@ -9,21 +9,36 @@ const Wrapper = styled.div`
 
 `;
 
+
+let getInitialState = (API_ParmsObj, location) => {
+  let parms = API_ParmsObj[location].parms;
+  let parmsState = {};
+  parms.forEach(parm => {
+    parmsState = {
+      ...parmsState,
+      [parm]: ''
+    }
+  })
+  console.log('GIS - parmsState', parmsState)
+  return parmsState;
+}
+
+
 const APICall = ({ location, funcs, API_ParmsObj }) => {
-  let [config, setConfig] = useState()
-  let [input, setInput] = useState()
+  let [config, setConfig] = useState();
+  let [input, setInput] = useState({showId: '', seasonNum: ''});
   let CallJSX = null;
   let parms = API_ParmsObj[location].parms;
   let funcCall = API_ParmsObj[location].func;
-
-  let functionButton2 = (parmObject) => {
+console.log('API Call input', input)
+  
+let functionButton2 = (parmObject) => {
     let parmArray = []
-    console.log('parmobject', parmObject)
+    console.log('FB2 - parmobject', parmObject)
     Object.keys(parmObject).forEach(parm => {
-      
       parmArray.push(parmObject[parm])
     })
-    console.log('parm array', ...parmArray)
+    console.log('FB2 - parm array', ...parmArray)
     return location ? 
     <React.Fragment>
       <button onClick={async () => setConfig(await funcCall(...parmArray))}>Call API</button>
@@ -31,17 +46,21 @@ const APICall = ({ location, funcs, API_ParmsObj }) => {
   : null;
   }
 
-  let inputArray = []
-  if(parms.length) {
-    inputArray = parms.map((parm, idx) => {
-      return (
-        <input value={input[parm]} onChange={(e) => setInput(inputs => {
-          console.log ('inputs', inputs)
-          return {[parm]: e.target.value}
-        })} />
-      )
-    })
+  let createInputs = (parms) => {
+    let inputArray = []
+    if(parms.length) {
+      inputArray = parms.map((parm, idx) => {
+        console.log('INARRAY - inputArray', inputArray)
+        return (
+          <input value={input[parm]} onChange={(e) => setInput(inputs => {
+            return {...inputs, [parm]: e.target.value}
+          })} />
+        )
+      })
+    }
+    return inputArray;
   }
+
   switch (location) {
     case 'getConfig': 
       CallJSX = <div>Config Call
@@ -54,7 +73,9 @@ const APICall = ({ location, funcs, API_ParmsObj }) => {
       </div>;
       break;
     case 'getEpisodes': 
+      
       CallJSX = <div>Get Episodes
+        {createInputs(API_ParmsObj[location].parms)}
         {functionButton2(input)}
       </div>;
       break;
@@ -65,7 +86,6 @@ const APICall = ({ location, funcs, API_ParmsObj }) => {
     <Wrapper>
       {CallJSX}
       
-      {inputArray || null}
       <div style={{display: "block"}}>Results</div>
       {config ? config.apiCall : null}
     </Wrapper>
