@@ -97,7 +97,14 @@ export const getEpisodes = (showId, seasonNum) => {
           data: resp.data,
           apiCall: resp.request.responseURL
         }
-    });
+      })
+      .catch(err => {
+        return {
+          error: err,
+          status: err.response.request.status,
+          statusText: err.response.request.statusText,
+        }
+      });
 };
 
 /**

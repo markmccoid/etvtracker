@@ -1,72 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 //import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs"
 import styled, { css, keyframes } from 'react-emotion/macro';
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-left: 25px;
-`;
-const Input = styled.input`
-  margin-top: 5px;
+  flex-direction: columns;
 `;
 
 let getInitialState = (parms) => {
-  console.log("in INITIAL STATE")
-  let parmsState = [];
+  let parmsState = {};
   parms.forEach(parm => {
-    parmsState.push({
-      value: ''
-    }) 
+    parmsState = {
+      ...parmsState,
+      [parm]: ''
+    }
   })
+  console.log('GIS - parmsState', parmsState)
   return parmsState;
 }
 
 const APICall = ({ location, apiCallFunction, parms }) => {
-  let [config, setConfig] = useState(null);
-  let [fields, setFields] = useState();
+  let initialState = getInitialState(parms);
+  let [config, setConfig] = useState();
+  let [input, setInput] = useState(initialState);
 
-  useEffect(() => {
-    // Set the intitial state to an array of objects with one object for each
-    // argument.  Need this so that setFields call will have something to set.
-    setFields(getInitialState(parms))
-    setConfig(null)
-  }, [parms])
-  
-  // update the proper argument entry with what the input field that was updated
-  function handleChange(idx, event) {
-    const values = [...fields];
-    values[idx].value = event.target.value;
-    setFields(values);
-  }
-// need to make sure that getInitialState has updated our state field before rendering/building input fields
-  let doRender = fields ? fields.length === parms.length : false;
+  let inputArray = []
+  useLayoutEffect(() => { 
+    if(parms.length) {
+      inputArray = parms.map((parm, idx) => {
+        return (
+          <input value={input[parm]} onChange={(e) => {
+              setInput(inputs => {
+                return {...inputs, [parm]: e.target.value}
+              })
+          }} />
+        )
+      })
+    }
+    console.log('INARRAY - useEffect', inputArray) 
+  }, [parms]);
+
+  console.log('INARRAY - inputArray', inputArray) 
+
   return (
     <Wrapper>
       <div>
         {location} API Call
       </div>
-      {doRender  && parms.map((field, idx) => {
-          return (
-            <React.Fragment key={idx}>
-              <label>{field}</label>
-              <Input
-                value={fields[idx].value}
-                onChange={e => handleChange(idx, e)}
-              />
-            </React.Fragment>
-          )
-        })
-      }
-      <button onClick={async () => setConfig(await apiCallFunction(...fields.map(field => field.value)))}
-      >Call API</button>
+      {inputArray}
+      <button onClick={async () => setConfig(await apiCallFunction())}>Call API</button>
       <div style={{display: "block"}}>Results</div>
       {config ? config.apiCall : null}
-      {config && Object.keys(config.data).map((dataKey) => {
-        console.log(JSON.stringify(config.data[dataKey], null, 4))
-        //return <p>{config.data[dataKey]}</p>
-        
-      })}
     </Wrapper>
   )
 };

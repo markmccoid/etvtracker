@@ -41,7 +41,7 @@ class SidebarSearch extends React.Component {
           </div>
           <div>
             Named: 
-            <Button size="small" shape="circle" type="primary" style={{marginLeft: "8px"}}d
+            <Button size="small" shape="circle" type="primary" style={{marginLeft: "8px"}}
               onClick={() => this.props.onSortByUpdate(this.props.sortBy === 'name-asc' ? 'name-desc' : 'name-asc')} 
             >
               <Icon type={this.props.sortBy === 'name-asc' ? "caret-up" : "caret-down"} />

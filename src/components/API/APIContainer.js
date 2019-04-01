@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs"
 import styled, { css } from 'react-emotion/macro';
-import { getConfig, searchTVByTitle } from '../../api/TMDBApi'
+import { getConfig, getEpisodes } from '../../api/TMDBApi'
 import APITVMain from './APITVMain';
 
 const MyTab = styled(Tab)`
@@ -9,18 +9,15 @@ const MyTab = styled(Tab)`
   color: black;
 `;
 
-const callGetConfig = async () => {
-  const results = await getConfig()
+const callGetEpisodes = async (showId, seasonNum) => {
+  const results = await getEpisodes(showId, seasonNum)
   console.log('API Results', results)
   return results
 }
 const APIContainer = (props) => {
   console.log('api props', props)
   let [config, setConfig] = useState()
-  useEffect(async () => {
-    const results = await callGetConfig()
-    setConfig(results)
-  }, [])
+
   console.log(config)
   return (
     <div>
@@ -44,8 +41,6 @@ const APIContainer = (props) => {
             </TabPanel>
           </TabPanels>
         </Tabs>
-      <button onClick={callGetConfig}>GetConfig</button>
-      <p>{config && config.apiCall}</p>
     </div>
   )
 }

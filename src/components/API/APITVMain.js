@@ -45,18 +45,13 @@ const callGetEpisodes = async (showId, seasonNum) => {
   console.log('API Results getEpisodes', results)
   return results
 }
-
 const APITVMain = (props) => {
-  let [loc, setLoc] = useState('none')
+  let [loc, setLoc] = useState()
   let APIObj = {
     getConfig: callGetConfig,
     searchTVByTitle: callSearchTVByTitle
   }
   let API_ParmsObj = {
-    none: {
-      func: null,
-      parms: []
-    },
     getConfig: {
       func: callGetConfig,
       parms: []
@@ -79,7 +74,7 @@ const APITVMain = (props) => {
           <li><SidebarLink onClick={() => setLoc('getEpisodes')}>Get Episode Info</SidebarLink></li>
         </SidebarItems>
       </Sidebar>
-      <APICall location={loc} funcs={APIObj} API_ParmsObj={API_ParmsObj}/>
+      {loc && <APICall location={loc} apiCallFunction={API_ParmsObj[loc].func} parms={[...API_ParmsObj[loc].parms]}/>}
     </Wrapper>
   )
 };
