@@ -3,6 +3,7 @@ import axios from 'axios';
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const API_URL = 'https://api.themoviedb.org/3';
 
+
 /**
  * Returns configuration information from TMDb.
  * 
@@ -12,6 +13,7 @@ const API_URL = 'https://api.themoviedb.org/3';
  */
 export const getConfig = () => {
   const apiCall = `${API_URL}/configuration?api_key=${API_KEY}`;
+  
   return axios
     .get(apiCall)
       .then((resp) => {
@@ -29,6 +31,22 @@ export const getConfig = () => {
         };
       });
 };
+
+async function getImageURL() {
+  let resp = await getConfig();  
+  return resp.data.images.base_url;
+//  IMG_URL_SECURE = resp.data.images.secure_base_url;
+}
+
+const IMG_URL = getImageURL()
+  .then(resp => {
+      console.log('in getImageURL', resp);
+      return resp
+    }
+  )
+  .catch(err => console.log('Image URL Error', err));
+
+
 
 /**
  * Returns data from search by searchString

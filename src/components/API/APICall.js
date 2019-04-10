@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 //import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs"
 import styled, { css, keyframes } from 'react-emotion/macro';
+import Inspector from 'react-inspector'; 
+import ReactJson from 'react-json-view';
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,6 +48,8 @@ const APICall = ({ location, apiCallFunction, parms }) => {
       <div>
         {location} API Call
       </div>
+      {// Render input fields based on parms passed
+      }
       {doRender  && parms.map((field, idx) => {
           return (
             <React.Fragment key={idx}>
@@ -58,15 +62,35 @@ const APICall = ({ location, apiCallFunction, parms }) => {
           )
         })
       }
-      <button onClick={async () => setConfig(await apiCallFunction(...fields.map(field => field.value)))}
-      >Call API</button>
+      <button 
+        onClick={async () => setConfig(await apiCallFunction(...fields.map(field => field.value)))}
+      >
+        Call API
+      </button>
       <div style={{display: "block"}}>Results</div>
       {config ? config.apiCall : null}
-      {config && Object.keys(config.data).map((dataKey) => {
-        console.log(JSON.stringify(config.data[dataKey], null, 4))
-        //return <p>{config.data[dataKey]}</p>
+      {config && 
+        <ReactJson 
+          src={config.data} 
+          theme="monokai" 
+          collapseStringsAfterLength={50} 
+          indentWidth={2}
+        />
+      }
+      {/* {config && Object.keys(config.data).map((dataKey) => {
+        console.log('dataKey', dataKey)
         
-      })}
+        if (typeof config.data[dataKey] === 'object') {
+          return Object.keys(config.data[dataKey]).map(subKey => {
+            console.log(`${subKey} : ${JSON.stringify(config.data[dataKey][subKey], null, 4)}`)
+            return <div>{subKey} : {JSON.stringify(config.data[dataKey][subKey], null, 4)}</div>
+          })
+        } else {
+          console.log(JSON.stringify(config.data[dataKey], null, 4))
+          return (<p>{dataKey}: {config.data[dataKey]}</p>)
+        }
+        
+      })} */}
     </Wrapper>
   )
 };

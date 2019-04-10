@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled, { css } from 'react-emotion/macro';
-import { getConfig, searchTVByTitle, getEpisodes } from '../../api/TMDBApi'
+import { getConfig, searchTVByTitle, getEpisodes, getShowDetails,
+         getShowImages } from '../../api/TMDBApi'
 import APICall from './APICall';
 
 const Wrapper = styled.div`
@@ -29,40 +30,39 @@ const SidebarLink = styled.a`
   }
 `;
 
-const callGetConfig = async () => {
-  const results = await getConfig()
-  console.log('API Results getConfig', results)
-  return results
+// returns a function that will accept 0 to n arguments
+const fuctionFactory = (fn) => {
+  let callFunction = async (...rest) => {
+    console.log('ARGS',  rest)
+    const results = await fn(...rest);
+    return results;
+  }
+  return callFunction;
 }
 
-const callSearchTVByTitle = async (title) => {
-  const results = await searchTVByTitle(title)
-  console.log('API Results searchTVByTitle', results)
-  return results
-}
-const callGetEpisodes = async (showId, seasonNum) => {
-  const results = await getEpisodes(showId, seasonNum)
-  console.log('API Results getEpisodes', results)
-  return results
-}
 const APITVMain = (props) => {
   let [loc, setLoc] = useState()
-  let APIObj = {
-    getConfig: callGetConfig,
-    searchTVByTitle: callSearchTVByTitle
-  }
+
   let API_ParmsObj = {
     getConfig: {
-      func: callGetConfig,
+      func: fuctionFactory(getConfig),
       parms: []
     },
     searchTVByTitle: {
-      func: callSearchTVByTitle,
+      func: fuctionFactory(searchTVByTitle),
       parms: ['title']
     }, 
     getEpisodes: {
-      func: callGetEpisodes,
+      func: fuctionFactory(getEpisodes),
       parms: ['showId', 'seasonNum']
+    }, 
+    getShowDetails: {
+      func: fuctionFactory(getShowDetails),
+      parms: ['showId']
+    }, 
+    getShowImages: {
+      func: fuctionFactory(getShowImages),
+      parms: ['showId']
     }
   }
   return (
@@ -72,6 +72,8 @@ const APITVMain = (props) => {
           <li><SidebarLink onClick={() => setLoc('getConfig')}>Get Config</SidebarLink></li>
           <li><SidebarLink onClick={() => setLoc('searchTVByTitle')}>Get TV Info</SidebarLink></li>
           <li><SidebarLink onClick={() => setLoc('getEpisodes')}>Get Episode Info</SidebarLink></li>
+          <li><SidebarLink onClick={() => setLoc('getShowDetails')}>Get Show Details</SidebarLink></li>
+          <li><SidebarLink onClick={() => setLoc('getShowImages')}>Get Show Images</SidebarLink></li>
         </SidebarItems>
       </Sidebar>
       {loc && <APICall location={loc} apiCallFunction={API_ParmsObj[loc].func} parms={[...API_ParmsObj[loc].parms]}/>}

@@ -31,6 +31,8 @@
     "react-app-rewired": "^1.5.2",
     "react-beautiful-dnd": "^8.0.3",
     "react-emotion": "^9.2.12",
+    "react-inspector": "^3.0.2",
+    "react-json-view": "^1.19.1",
     "react-powerplug": "^1.0.0-rc.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
