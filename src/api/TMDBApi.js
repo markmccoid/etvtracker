@@ -3,51 +3,6 @@ import axios from 'axios';
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const API_URL = 'https://api.themoviedb.org/3';
 
-
-/**
- * Returns configuration information from TMDb.
- * 
- * @returns {object} response object {data, msg} 
- *  on success { data: data from api call, apiCall: API call}
- *  on error { data: 'ERROR', msg: error message, }
- */
-export const getConfig = () => {
-  const apiCall = `${API_URL}/configuration?api_key=${API_KEY}`;
-  
-  return axios
-    .get(apiCall)
-      .then((resp) => {
-        return {
-          data: resp.data,
-          apiCall: resp.request.responseURL
-        }
-      })
-      .catch((err) => {
-        console.log(`Error with config get: ${err}`)
-        return {
-          data: 'ERROR',
-          apiCall,
-          msg: err
-        };
-      });
-};
-
-async function getImageURL() {
-  let resp = await getConfig();  
-  return resp.data.images.base_url;
-//  IMG_URL_SECURE = resp.data.images.secure_base_url;
-}
-
-const IMG_URL = getImageURL()
-  .then(resp => {
-      console.log('in getImageURL', resp);
-      return resp
-    }
-  )
-  .catch(err => console.log('Image URL Error', err));
-
-
-
 /**
  * Returns data from search by searchString
  * 
@@ -163,8 +118,73 @@ export const getExternalIds = (showId) => {
           apiCall: resp.request.responseURL
         }
       })
-}
+};
 
+/**
+ * Returns Credits from TMDb.
+ * 
+ * @param {string} showId - TMDb show id
+ * @returns {object} response object {data, msg} 
+ *  on success { data: data from api call, apiCall: API call}
+ *  on error { data: 'ERROR', msg: error message, }
+ */
+export const getCredits = (showId) => {
+  const apiCall = `${API_URL}/tv/${showId}/credits?api_key=${API_KEY}`;
+  return axios
+    .get(apiCall)
+      .then((resp) => {
+        return {
+          data: resp.data,
+          apiCall: resp.request.responseURL
+        }
+      })
+};
+
+/**
+ * Returns Credit Details from TMDb.
+ * 
+ * @param {string} creditId - TMDb show id
+ * @returns {object} response object {data, msg} 
+ *  on success { data: data from api call, apiCall: API call}
+ *  on error { data: 'ERROR', msg: error message, }
+ */
+export const getCreditDetails = (creditId) => {
+  const apiCall = `${API_URL}/credit/${creditId}?api_key=${API_KEY}`;
+  return axios
+    .get(apiCall)
+      .then((resp) => {
+        return {
+          data: resp.data,
+          apiCall: resp.request.responseURL
+        }
+      })
+};
+
+/**
+ * Returns Person Details for TV from TMDb.
+ * Person Id can be found in getCredits results
+ * cast: [
+ *  {
+ *    id: this is the personId
+ *    ...
+ *  }
+ * ]
+ * @param {string} personId - TMDb show id
+ * @returns {object} response object {data, msg} 
+ *  on success { data: data from api call, apiCall: API call}
+ *  on error { data: 'ERROR', msg: error message, }
+ */
+export const getPersonDetails = (personId) => {
+  const apiCall = `${API_URL}/person/${personId}/tv_credits?api_key=${API_KEY}`;
+  return axios
+    .get(apiCall)
+      .then((resp) => {
+        return {
+          data: resp.data,
+          apiCall: resp.request.responseURL
+        }
+      })
+};
 
 
 // export const getShowSeasons = (showId) => {

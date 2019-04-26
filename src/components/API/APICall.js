@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 //import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs"
 import styled, { css, keyframes } from 'react-emotion/macro';
-import Inspector from 'react-inspector'; 
 import ReactJson from 'react-json-view';
+
 
 const Wrapper = styled.div`
   display: flex;

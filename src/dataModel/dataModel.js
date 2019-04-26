@@ -37,7 +37,10 @@ import { getConfig,
   getShowImages, 
   getShowDetails, 
   getEpisodes,
-  getExternalIds } from '../api';
+  getExternalIds, 
+  getImgURLs
+} from '../api';
+
 import { fb_DeleteTagName, 
   fb_AddTagName, 
   fb_UpdateTVAll,
@@ -97,7 +100,14 @@ export const getImageURLSync = (imgFileName, size = 'm', secureURL=true) => {
     default:
       size = 'w300';
   }
-  let baseURL = secureURL ? 'https://image.tmdb.org/t/p/' : 'http://image.tmdb.org/t/p/';
+  let { IMG_URL, SECURE_IMG_URL}= getImgURLs();
+  let baseURL;
+  if (IMG_URL) {
+    baseURL = secureURL ? SECURE_IMG_URL : IMG_URL;
+  } else {
+    baseURL = secureURL ? 'https://image.tmdb.org/t/p/' : 'http://image.tmdb.org/t/p/';
+  }
+  
   // Get rid of any preceding '/'  in the passed imgFileName
   let regEx = /[^\/].*/;
   // If imgFileName IS NOT an array, then process as single file, but still return array
@@ -161,6 +171,7 @@ export const getImageURL = async (imgFileName, size = 'm', secureURL=true) => {
   // Get rid of any preceding '/'  in the passed imgFileName
   let regEx = /[^\/].*/;
   baseURL = resp.data.images[secureURL ? 'secure_base_url' : 'base_url'];
+  
   // If imgFileName IS NOT an array, then process as single file, but still return array
   if (!Array.isArray(imgFileName)) {
     return imgFileName ? [`${baseURL}${size}/${imgFileName.match(regEx)[0]}`] : [''];
