@@ -3,6 +3,7 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs"
 import styled, { css } from 'react-emotion/macro';
 import { getConfig, getEpisodes } from '../../api/TMDBApi'
 import APITVMain from './APITVMain';
+import APIMovieMain from './APIMovieMain';
 
 const MyTab = styled(Tab)`
   background: white;
@@ -37,7 +38,7 @@ const APIContainer = (props) => {
               <APITVMain />
             </TabPanel>
             <TabPanel>
-              Dos
+              <APIMovieMain />
             </TabPanel>
           </TabPanels>
         </Tabs>
