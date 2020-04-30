@@ -6,6 +6,7 @@ const FB_DATABASEURL = process.env.REACT_APP_FB_DATABASEURL;
 const FB_PROJECTID = process.env.REACT_APP_FB_PROJECTID;
 const FB_STORAGEBUCKET = process.env.REACT_APP_FB_STORAGEBUCKET;
 const FB_MESSAGINGSENDERID = process.env.REACT_APP_FB_MESSAGINGSENDERID;
+const FB_APPID = process.env.REACT_APP_FB_APPID;
 
 const config = {
   apiKey: FB_API_KEY,
@@ -13,7 +14,8 @@ const config = {
   databaseURL: FB_DATABASEURL,
   projectId: FB_PROJECTID,
   storageBucket: FB_STORAGEBUCKET,
-  messagingSenderId: FB_MESSAGINGSENDERID
+  messagingSenderId: FB_MESSAGINGSENDERID, 
+  appId: FB_APPID
 };
 
 firebase.initializeApp(config);
