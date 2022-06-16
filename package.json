@@ -23,7 +23,7 @@
     "concurrently": "^3.6.0",
     "devtron": "^1.4.0",
     "dotenv": "^6.0.0",
-    "electron": "^2.0.4",
+    "electron": "^15.5.5",
     "electron-builder": "^20.19.1",
     "emotion": "^9.2.12",
     "firebase": "^5.2.0",
